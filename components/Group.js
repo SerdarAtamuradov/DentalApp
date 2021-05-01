@@ -75,6 +75,7 @@ const GroupTitle = styled.Text`
 
 const GroupBlock = styled.View`
   padding: 0 20px;
+  margin-bottom: 25px;
 `;
 
 export default Group;
