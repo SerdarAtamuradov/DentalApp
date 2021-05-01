@@ -7,11 +7,109 @@ const img1 =
 
 //import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, SectionList } from "react-native";
 import styled from "styled-components/native";
-import { Group } from "./components";
+import { Appointment, SectionTitle } from "./components";
+import { Ionicons } from "@expo/vector-icons";
 
 const DATA = [
+  {
+    title: "14 мая",
+    data: [
+      {
+        time: "12:30",
+        diagnosis: "пульпит, удаление зуба",
+        user: {
+          fullname: "Евгений Юров",
+          avatar: img3,
+        },
+      },
+      {
+        time: "15:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Владислав Александров",
+          avatar: img2,
+        },
+      },
+      {
+        time: "15:30",
+        diagnosis: "пульпит, удаление зуба",
+        active: true,
+        user: {
+          fullname: "Анжела Матиева",
+          avatar: img1,
+        },
+      },
+      {
+        time: "14:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Василий Реактович",
+          avatar: img2,
+        },
+      },
+    ],
+  },
+  {
+    title: "11 мая",
+    data: [
+      {
+        time: "12:30",
+        diagnosis: "пульпит, удаление зуба",
+        user: {
+          fullname: "Евгений Юров",
+          avatar: img3,
+        },
+      },
+      {
+        time: "15:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Владислав Александров",
+          avatar: img2,
+        },
+      },
+      {
+        time: "15:30",
+        diagnosis: "пульпит, удаление зуба",
+        active: true,
+        user: {
+          fullname: "Анжела Матиева",
+          avatar: img1,
+        },
+      },
+      {
+        time: "14:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Василий Реактович",
+          avatar: img2,
+        },
+      },
+    ],
+  },
+  {
+    title: "14 мая",
+    data: [
+      {
+        time: "12:30",
+        diagnosis: "пульпит, удаление зуба",
+        user: {
+          fullname: "Евгений Юров",
+          avatar: img3,
+        },
+      },
+      {
+        time: "15:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Владислав Александров",
+          avatar: img2,
+        },
+      },
+    ],
+  },
   {
     title: "11 мая",
     data: [
@@ -60,13 +158,38 @@ const DATA = [
 export default function App() {
   return (
     <Container>
-      <Group title="11 мая" items={} />
-      <Group title="14 мая" items={} />
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => index}
+        renderItem={({ item }) => <Appointment {...item} />}
+        renderSectionHeader={({ section: { title } }) => (
+          <SectionTitle>{title}</SectionTitle>
+        )}
+      />
+      <PlusButton>
+        <Ionicons name="ios-add" size={38} color="white" />
+      </PlusButton>
     </Container>
   );
 }
 
+const PlusButton = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 64px;
+  height: 64px;
+  background: #2a86ff;
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+  shadow-color: #2a86ff;
+  shadow-opacity: 0.7;
+  shadow-radius: 3.5;
+  elevation: 5;
+`;
+
 const Container = styled.View`
   flex: 1;
-  margin-top: 50px;
+  margin-top: 30px;
 `;

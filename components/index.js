@@ -1,1 +1,2 @@
-export { default as Group } from "./Group";
+export { default as Appointment } from "./Appointment";
+export { default as SectionTitle } from "./SectionTitle";
