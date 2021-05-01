@@ -14,11 +14,46 @@ import { Group } from "./components";
 const DATA = [
   {
     title: "11 мая",
-    data: ["Pizza", "Burger", "Risotto"],
+    data: [
+      {
+        time: "15:30",
+        diagnosis: "пульпит, удаление зуба",
+        active: true,
+        user: {
+          fullname: "Анжела Матиева",
+          avatar: img1,
+        },
+      },
+      {
+        time: "14:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Василий Реактович",
+          avatar: img2,
+        },
+      },
+    ],
   },
   {
     title: "14 мая",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+    data: [
+      {
+        time: "12:30",
+        diagnosis: "пульпит, удаление зуба",
+        user: {
+          fullname: "Евгений Юров",
+          avatar: img3,
+        },
+      },
+      {
+        time: "15:00",
+        diagnosis: "периодонтит",
+        user: {
+          fullname: "Владислав Александров",
+          avatar: img2,
+        },
+      },
+    ],
   },
 ];
 
@@ -26,27 +61,7 @@ export default function App() {
   return (
     <Container>
       <Group title="11 мая" items={} />
-      <Group
-        title="14 мая"
-        items={[
-          {
-            time: "12:30",
-            diagnosis: "пульпит, удаление зуба",
-            user: {
-              fullname: "Евгений Юров",
-              avatar: img3,
-            },
-          },
-          {
-            time: "15:00",
-            diagnosis: "периодонтит",
-            user: {
-              fullname: "Владислав Александров",
-              avatar: img2,
-            },
-          },
-        ]}
-      />
+      <Group title="14 мая" items={} />
     </Container>
   );
 }
