@@ -2,11 +2,12 @@
 //import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { View } from "react-native";
+import { NavigationEvents } from "react-navigation";
 import styled from "styled-components/native";
 
-const Group = ({ user, diagnosis, active, time }) => {
+const Group = ({ user, diagnosis, active, time, navigate }) => {
   return (
-    <GroupItem>
+    <GroupItem onPress={navigate.bind(this, "Patient")}>
       <Avatar source={{ uri: user.avatar }} />
       <View style={{ flex: 1 }}>
         <FullName>{user.fullname}</FullName>
