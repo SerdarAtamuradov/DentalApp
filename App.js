@@ -7,25 +7,25 @@ import { HomeScreen, PatientScreen } from "./screens/";
 const AppNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
-    navigationOptions: {
-      title: "Пациенты",
-      headerTintColor: "#2A86FF",
-      headerStyle: {
-        elevation: 0.8,
-        shadowOpacity: 0.8,
-      },
-    },
+    // navigationOptions: {
+    //   title: "Пациенты",
+    //   headerTintColor: "#2A86FF",
+    //   headerStyle: {
+    //     elevation: 0.8,
+    //     shadowOpacity: 0.8,
+    //   },
+    // },
   },
   Patient: {
     screen: PatientScreen,
-    navigationOptions: {
-      title: "Пациент",
-      headerTintColor: "#2A86FF",
-      headerStyle: {
-        elevation: 0.8,
-        shadowOpacity: 0.8,
-      },
-    },
+    //navigationOptions: {
+    // title: "Карта пациента",
+    // headerTintColor: "#2A86FF",
+    // headerStyle: {
+    //   elevation: 0.8,
+    //   shadowOpacity: 0.8,
+    // },
+    //},
   },
 });
 
