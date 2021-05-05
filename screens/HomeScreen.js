@@ -13,6 +13,7 @@ const DATA = [
         time: "12:30",
         diagnosis: "пульпит, удаление зуба",
         user: {
+          phone: "+375 (29) 420-56-28",
           fullname: "Анжела Матиева",
           avatar:
             "https://sun2.dataix-by-minsk.userapi.com/s/v1/ig2/1aFymL1Lza8Ny7XK70kvUPh3KPq8TaVHPu4YelFVUWeMKEJB2ZJdTC71Xlse4u8-1UB-joo9CnPkx0sdjUjZ8cuX.jpg?size=50x0&quality=96&crop=0,185,735,735&ava=1",
@@ -22,6 +23,7 @@ const DATA = [
         time: "15:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (25) 126-33-42",
           fullname: "Владислав Александров",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/MG158Aa-WG-_YzbBv9Llcz589C5uTghYqABs7LHYjGM4Tp8fXD8HFIsi6h2nMSDnHWPMJVSZT_QK6jG8ZKjvhSbF.jpg?size=50x0&quality=96&crop=74,74,589,589&ava=1",
@@ -32,6 +34,7 @@ const DATA = [
         diagnosis: "пульпит, удаление зуба",
         active: true,
         user: {
+          phone: "+375 (44) 425-33-69",
           fullname: "Евгений Юров",
           avatar: img1,
         },
@@ -40,6 +43,7 @@ const DATA = [
         time: "14:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (44) 863-44-28",
           fullname: "Василий Реактович",
           avatar: img2,
         },
@@ -53,6 +57,7 @@ const DATA = [
         time: "12:30",
         diagnosis: "пульпит, удаление зуба",
         user: {
+          phone: "+375 (29) 111-38-12",
           fullname: "Евгений Юров",
           avatar: img3,
         },
@@ -61,6 +66,7 @@ const DATA = [
         time: "15:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (25) 555-33-33",
           fullname: "Владислав Александров",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/Zxb7RswQQQFHNn_0qg9-lV55nsp4CxrIVdnMOSFt3wp_wL8rfRC4waNtBV8_7HeyxT2jKUfkdcWL-8pFXbGwD6wn.jpg?size=50x0&quality=96&crop=0,12,749,749&ava=1",
@@ -71,6 +77,7 @@ const DATA = [
         diagnosis: "пульпит, удаление зуба",
         active: true,
         user: {
+          phone: "+375 (29) 666-20-25",
           fullname: "Анжела Матиева",
           avatar:
             "https://sun2.dataix-by-minsk.userapi.com/s/v1/ig2/IxYj-FO2H0BVgmzAbHg-MPglmtPlsInd1XIY-XuwUTIx9mjA7j3DoRVxTChBD6008ioh5Wz7uaxewYI11IhNzS6q.jpg?size=50x0&quality=96&crop=52,0,679,679&ava=1",
@@ -80,6 +87,7 @@ const DATA = [
         time: "14:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (33) 221-27-28",
           fullname: "Василий Реактович",
           avatar:
             "https://sun2.dataix-by-minsk.userapi.com/s/v1/ig1/i5cKEOiACrBS6paI7d8nMIOgJOQ4W90s-xXfVvGOT0BmtX3oKblst2ieFbHCingNgA-krPHi.jpg?size=50x0&quality=96&crop=60,146,304,304&ava=1",
@@ -94,6 +102,7 @@ const DATA = [
         time: "12:30",
         diagnosis: "пульпит, удаление зуба",
         user: {
+          phone: "+375 (25) 238-56-17",
           fullname: "Евгений Юров",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/u1m4dHC8gJyiIype_H0UMpSoczU8URUlm1-pIrjsozn2XfNCn1gEph2UBWyreeD2Jvobzyrs5YsKwFfOLnqMnlD6.jpg?size=50x0&quality=96&crop=161,1,718,718&ava=1",
@@ -103,6 +112,7 @@ const DATA = [
         time: "15:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (33) 536-37-43",
           fullname: "Владислав Александров",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/-veM0lLQZjSqqdAwRaJFsHzG6uRJHm_OXvqrAGemQACe9OLPYR5o6k9ZmnORVDxLJScwetmvfM9bEKXEbK0PMd_1.jpg?size=50x0&quality=96&crop=705,227,1144,1144&ava=1",
@@ -118,6 +128,7 @@ const DATA = [
         diagnosis: "пульпит, удаление зуба",
         active: true,
         user: {
+          phone: "+375 (44) 472-89-32",
           fullname: "Анжела Матиева",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/Y7GbybHOYafWkoSqe0OfCZM9FH9XnhjC2oYT0yNa7DjQn_YZ_71cKdySM5agyyETgPCBPyh2_kpWAXNxGzfk8nZU.jpg?size=50x0&quality=96&crop=3,0,729,729&ava=1",
@@ -127,6 +138,7 @@ const DATA = [
         time: "14:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (29) 269-36-64",
           fullname: "Василий Реактович",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/tNfrx85zjhTJer7Nmg1QnYcBxfORYhMgorMId3ZBH2xF_CGP8YYgQJ6SG43vpZlm5LUPpmRv-VB9OvOdB4URKEWO.jpg?size=50x0&quality=96&crop=1,491,738,738&ava=1",
@@ -141,6 +153,7 @@ const DATA = [
         time: "12:30",
         diagnosis: "пульпит, удаление зуба",
         user: {
+          phone: "+375 (44) 257-22-99",
           fullname: "Евгений Юров",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/dUryqzU_02kD9XmxRsniuXjPjXIK8_Q3xCOl21_BCFSLgYLo8mPzmIORPK1pA5TmpBk-RgHrByYulTqZ7zvVR7fU.jpg?size=50x0&quality=96&crop=2,91,1077,1077&ava=1",
@@ -150,6 +163,7 @@ const DATA = [
         time: "15:00",
         diagnosis: "периодонтит",
         user: {
+          phone: "+375 (33) 111-57-43",
           fullname: "Владислав Александров",
           avatar:
             "https://sun1.dataix-by-minsk.userapi.com/s/v1/ig2/EqMIx09qvitWwdmGnTFQtEWJu__NGD0EV9wGdVVzcFsugi40lG6HwbxU9illPbsUTARN9CvZOiZSaWTjzr83Ug_F.jpg?size=50x0&quality=96&crop=0,85,720,720&ava=1",
@@ -165,7 +179,7 @@ const HomeScreen = ({ navigation }) => (
       sections={DATA}
       keyExtractor={(item, index) => index}
       renderItem={({ item }) => (
-        <Appointment navigate={navigation.navigate} {...item} />
+        <Appointment navigate={navigation.navigate} item={item} />
       )}
       renderSectionHeader={({ section: { title } }) => (
         <SectionTitle>{title}</SectionTitle>

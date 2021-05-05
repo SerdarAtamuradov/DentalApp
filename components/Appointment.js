@@ -4,10 +4,12 @@ import React from "react";
 import { View } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import styled from "styled-components/native";
+import GrayText from "./GrayText";
 
-const Group = ({ user, diagnosis, active, time, navigate }) => {
+const Appointment = ({ navigate, item }) => {
+  const { user, diagnosis, active, time } = item;
   return (
-    <GroupItem onPress={navigate.bind(this, "Patient")}>
+    <GroupItem onPress={navigate.bind(this, "Patient", item)}>
       <Avatar source={{ uri: user.avatar }} />
       <View style={{ flex: 1 }}>
         <FullName>{user.fullname}</FullName>
@@ -18,7 +20,7 @@ const Group = ({ user, diagnosis, active, time, navigate }) => {
   );
 };
 
-Group.defaultProps = {
+Appointment.defaultProps = {
   groupTitle: "Untitled",
   items: [],
 };
@@ -33,11 +35,6 @@ const GroupDate = styled.Text`
   height: 32px;
   text-align: center;
   line-height: 28px;
-`;
-
-const GrayText = styled.Text`
-  font-size: 16px;
-  color: #8b979f;
 `;
 
 const FullName = styled.Text`
@@ -69,4 +66,4 @@ const GroupItem = styled.TouchableOpacity`
 //   margin-bottom: 25px;
 // `;
 
-export default Group;
+export default Appointment;

@@ -4,29 +4,18 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { HomeScreen, PatientScreen } from "./screens/";
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    // navigationOptions: {
-    //   title: "Пациенты",
-    //   headerTintColor: "#2A86FF",
-    //   headerStyle: {
-    //     elevation: 0.8,
-    //     shadowOpacity: 0.8,
-    //   },
-    // },
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    Patient: {
+      screen: PatientScreen,
+    },
   },
-  Patient: {
-    screen: PatientScreen,
-    //navigationOptions: {
-    // title: "Карта пациента",
-    // headerTintColor: "#2A86FF",
-    // headerStyle: {
-    //   elevation: 0.8,
-    //   shadowOpacity: 0.8,
-    // },
-    //},
-  },
-});
+  {
+    initialRouteName: "Patient",
+  }
+);
 
 export default createAppContainer(AppNavigator);
