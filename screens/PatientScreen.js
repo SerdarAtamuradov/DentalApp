@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components/native";
-import { GrayText, Button } from "../components";
+import { GrayText, Button, Badge } from "../components";
 import { Foundation } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const PatientScreen = ({ navigation }) => (
   <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -28,11 +29,14 @@ const PatientScreen = ({ navigation }) => (
     <PatientAppointments>
       <Container>
         <AppointmentCart>
+          <MoreButton>
+            <Ionicons name="md-more" size={30} color="rgba(0, 0, 0, 0.4)" />
+          </MoreButton>
           <AppointmentCartRow>
             <FontAwesome5 name="briefcase-medical" size={18} color="#a3a3a3" />
             <AppointmentCartLabel>
               Болезнь:
-              <Text style={{ fontWeight: "bold" }}>Головная боль</Text>
+              <Text style={{ fontWeight: "bold" }}> Головная боль</Text>
             </AppointmentCartLabel>
           </AppointmentCartRow>
           <AppointmentCartRow>
@@ -44,12 +48,30 @@ const PatientScreen = ({ navigation }) => (
               </Text>
             </AppointmentCartLabel>
           </AppointmentCartRow>
+          <AppointmentCartRow
+            style={{ marginTop: 15, justifyContent: "space-between" }}
+          >
+            <Badge style={{ width: 155 }} active>
+              11.05.2021 - 15:40
+            </Badge>
+            <Badge color="green">10 BYR</Badge>
+          </AppointmentCartRow>
         </AppointmentCart>
       </Container>
     </PatientAppointments>
   </View>
 );
 
+const MoreButton = styled.TouchableOpacity`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  right:10px
+  top:10px
+  height: 32px;
+  width:32px;
+`;
 const AppointmentCartLabel = styled.Text`
   font-size: 16px;
   margin-left: 10px;

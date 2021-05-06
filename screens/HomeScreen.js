@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, SectionList } from "react-native";
 import styled from "styled-components/native";
 import { Appointment, SectionTitle } from "../components";
 import { Ionicons } from "@expo/vector-icons";
 import { img1, img2, img3 } from "./images";
+import axios from "axios";
 
-const DATA = [
+/*const DATA = [
   {
     title: "14 мая",
     data: [
@@ -171,25 +172,35 @@ const DATA = [
       },
     ],
   },
-];
+];*/
 
-const HomeScreen = ({ navigation }) => (
-  <Container>
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item, index) => index}
-      renderItem={({ item }) => (
-        <Appointment navigate={navigation.navigate} item={item} />
-      )}
-      renderSectionHeader={({ section: { title } }) => (
-        <SectionTitle>{title}</SectionTitle>
-      )}
-    />
-    <PlusButton>
-      <Ionicons name="ios-add" size={38} color="white" />
-    </PlusButton>
-  </Container>
-);
+const HomeScreen = ({ navigation }) => {
+  const [dat, setData] = useState(null);
+
+  useEffect(() => {
+    axios.get("").then(({ data }) => {
+      setData(data);
+    });
+  }, []);
+
+  return (
+    <Container>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => index}
+        renderItem={({ item }) => (
+          <Appointment navigate={navigation.navigate} item={item} />
+        )}
+        renderSectionHeader={({ section: { title } }) => (
+          <SectionTitle>{title}</SectionTitle>
+        )}
+      />
+      <PlusButton>
+        <Ionicons name="ios-add" size={38} color="white" />
+      </PlusButton>
+    </Container>
+  );
+};
 
 HomeScreen.navigationOptions = {
   title: "Пациенты",

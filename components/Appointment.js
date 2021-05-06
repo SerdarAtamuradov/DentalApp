@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import styled from "styled-components/native";
 import GrayText from "./GrayText";
+import Badge from "./Badge";
 
 const Appointment = ({ navigate, item }) => {
   const { user, diagnosis, active, time } = item;
@@ -15,7 +16,7 @@ const Appointment = ({ navigate, item }) => {
         <FullName>{user.fullname}</FullName>
         <GrayText>{diagnosis}</GrayText>
       </View>
-      <GroupDate active={active}>{time}</GroupDate>
+      <Badge active={active}>{time}</Badge>
     </GroupItem>
   );
 };
@@ -25,17 +26,7 @@ Appointment.defaultProps = {
   items: [],
 };
 
-const GroupDate = styled.Text`
-  background: ${(props) => (props.active ? "#2A86FF;" : "#e9f5ff;")};
-  color: ${(props) => (props.active ? "#2FFF;" : "#4294ff;")};
-  border-radius: 18px;
-  font-weight: bold;
-  font-size: 14px;
-  width: 70px;
-  height: 32px;
-  text-align: center;
-  line-height: 28px;
-`;
+// const GroupDate =
 
 const FullName = styled.Text`
   font-style: normal;
