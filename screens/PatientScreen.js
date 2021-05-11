@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components/native";
-import { GrayText, Button, Badge } from "../components";
+import { GrayText, Button, Badge, Container } from "../components";
 import { Foundation } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
 const PatientScreen = ({ navigation }) => (
-  <View style={{ flex: 1, backgroundColor: "white" }}>
+  <View style={{ flex: 1 }}>
     <PatientDetails>
       <PatientFullName>
         {navigation.getParam("user", {}).fullname}
@@ -35,7 +35,7 @@ const PatientScreen = ({ navigation }) => (
           <AppointmentCartRow>
             <FontAwesome5 name="briefcase-medical" size={18} color="#a3a3a3" />
             <AppointmentCartLabel>
-              Болезнь:
+              Боль:
               <Text style={{ fontWeight: "bold" }}> Головная боль</Text>
             </AppointmentCartLabel>
           </AppointmentCartRow>
@@ -64,7 +64,7 @@ const PatientScreen = ({ navigation }) => (
 
 const MoreButton = styled.TouchableOpacity`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: absolute;
   right:10px
@@ -86,26 +86,22 @@ const AppointmentCartRow = styled.View`
 
 const AppointmentCart = styled.View`
   shadow-color: gray;
-  shadow-opacity: 0.7;
+  shadow-opacity: 0.4;
   shadow-radius: 10px;
-  elevation: 0.8;
+  elevation: 0.5;
   padding: 20px 25px;
   border-radius: 10px;
   background: white;
-`;
-const Container = styled.View`
-  padding: 25px;
-  flex: 1;
+  margin-bottom: 20px;
 `;
 
 const PatientDetails = styled(Container)`
-  flex: 0.6;
-  background: white;
+  flex: 0.27;
+  background-color: #fbfbfb;
 `;
 const PatientAppointments = styled.View`
-  background: #f8fafd;
-  margin-top: 15px;
-  flex: 3;
+  flex: 1;
+  background-color: #f8fafd;
 `;
 
 const Diagnosis_Therapy = styled.View`
@@ -129,9 +125,9 @@ const PatientFullName = styled.Text`
   margin-bottom: 3px;
 `;
 
-const Info = styled.View`
-  padding-left: 20px;
-`;
+// const Info = styled.View`
+//   padding-left: 20px;
+// `;
 
 PatientScreen.navigationOptions = {
   title: "Карта пациента",
