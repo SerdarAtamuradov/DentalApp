@@ -58,6 +58,15 @@ const AddPatientScreen = ({ navigation }) => {
   );
 };
 
+const AppointmentCartRow = styled.Text`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3.5px;
+  margin-bottom: 3.5px;
+`;
+
 const ButtonView = styled.View`
   flex: 1;
   margin-top: 30px;

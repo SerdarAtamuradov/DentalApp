@@ -221,7 +221,7 @@ const HomeScreen = ({ navigation }) => {
 };
 
 HomeScreen.navigationOptions = {
-  title: "Пациенты",
+  title: "Приемы",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,

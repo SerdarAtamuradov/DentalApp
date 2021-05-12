@@ -1,66 +1,124 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, ActivityIndicator, Linking } from "react-native";
 import styled from "styled-components/native";
 import { GrayText, Button, Badge, Container } from "../components";
-import { Foundation } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import { Foundation, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
-const PatientScreen = ({ navigation }) => (
-  <View style={{ flex: 1 }}>
-    <PatientDetails>
-      <PatientFullName>
-        {navigation.getParam("user", {}).fullname}
-      </PatientFullName>
-      <GrayText>{navigation.getParam("user", {}).phone}</GrayText>
+import { patientsApi, phoneFormat } from "../utils/api";
 
-      <PatientButtons>
-        <Diagnosis_Therapy>
-          <Button>Диагноз и лечение</Button>
-        </Diagnosis_Therapy>
-        <PhoneButton>
-          <Button color="#84d269">
-            <Foundation name="telephone" size={22} color="white" />
-          </Button>
-        </PhoneButton>
-      </PatientButtons>
-    </PatientDetails>
+const PatientScreen = ({ navigation }) => {
+  const [appointments, setAppointments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    <PatientAppointments>
-      <Container>
-        <AppointmentCart>
-          <MoreButton>
-            <Ionicons name="md-more" size={30} color="rgba(0, 0, 0, 0.4)" />
-          </MoreButton>
-          <AppointmentCartRow>
-            <FontAwesome5 name="briefcase-medical" size={18} color="#a3a3a3" />
-            <AppointmentCartLabel>
-              Боль:
-              <Text style={{ fontWeight: "bold" }}> Головная боль</Text>
-            </AppointmentCartLabel>
-          </AppointmentCartRow>
-          <AppointmentCartRow>
-            <Foundation name="clipboard-notes" size={24} color="#a3a3a3" />
-            <AppointmentCartLabel>
-              Диагноз:
-              <Text style={{ fontWeight: "bold" }}>
-                Повышенное артериальное давление
-              </Text>
-            </AppointmentCartLabel>
-          </AppointmentCartRow>
-          <AppointmentCartRow
-            style={{ marginTop: 15, justifyContent: "space-between" }}
-          >
-            <Badge style={{ width: 155 }} active>
-              11.05.2021 - 15:40
-            </Badge>
-            <Badge color="green">10 BYR</Badge>
-          </AppointmentCartRow>
-        </AppointmentCart>
-      </Container>
-    </PatientAppointments>
-  </View>
-);
+  useEffect(() => {
+    const id = navigation.getParam("patient")._id;
+    patientsApi
+      .show(id)
+      .then(({ data }) => {
+        setAppointments(data.data.appointments);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  return (
+    <View style={{ flex: 1 }}>
+      <PatientDetails>
+        <PatientFullName>
+          {navigation.getParam("patient", {}).fullname}
+        </PatientFullName>
+        <GrayText style={{ marginLeft: 13 }}>
+          {navigation.getParam("patient", {}).phone}
+        </GrayText>
+
+        <PatientButtons>
+          <Diagnosis_Therapy>
+            <Button>Диагноз и лечение</Button>
+          </Diagnosis_Therapy>
+          <PhoneButton>
+            <Button
+              onPress={() =>
+                Linking.openURL(
+                  "tel:" + navigation.getParam("patient", {}).phone
+                )
+              }
+              color="#84D269"
+            >
+              <Foundation name="telephone" size={22} color="white" />
+            </Button>
+          </PhoneButton>
+        </PatientButtons>
+      </PatientDetails>
+
+      <PatientAppointments>
+        <Container>
+          <AppointmentText>
+            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Приемы</Text>
+          </AppointmentText>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#2A86FF" />
+          ) : (
+            appointments.map((appointment) => (
+              <AppointmentCart key={appointment._id}>
+                <MoreButton>
+                  <Ionicons
+                    name="md-more"
+                    size={30}
+                    color="rgba(0, 0, 0, 0.4)"
+                  />
+                </MoreButton>
+
+                <AppointmentCartRow>
+                  <FontAwesome5
+                    name="briefcase-medical"
+                    size={18}
+                    color="#a3a3a3"
+                  />
+                  <AppointmentCartLabel>
+                    Боль:
+                    <Text style={{ fontWeight: "bold" }}>
+                      &nbsp;{appointment.pain}
+                    </Text>
+                  </AppointmentCartLabel>
+                </AppointmentCartRow>
+                <AppointmentCartRow>
+                  <Foundation
+                    name="clipboard-notes"
+                    size={24}
+                    color="#a3a3a3"
+                    style={{ marginLeft: 2 }}
+                  />
+                  <AppointmentCartLabel>
+                    Диагноз:
+                    <Text style={{ fontWeight: "bold" }}>
+                      &nbsp;{appointment.diagnosis}
+                    </Text>
+                  </AppointmentCartLabel>
+                </AppointmentCartRow>
+                <AppointmentCartRow
+                  style={{ marginTop: 15, justifyContent: "space-between" }}
+                >
+                  <Badge style={{ width: 155 }} active>
+                    {appointment.date} - {appointment.time}
+                  </Badge>
+                  <Badge color="green"> {appointment.price} BYR</Badge>
+                </AppointmentCartRow>
+              </AppointmentCart>
+            ))
+          )}
+        </Container>
+      </PatientAppointments>
+    </View>
+  );
+};
+
+const AppointmentText = styled.View`     
+  position: absolute;
+  left:40px
+  top:9px;  
+`;
 
 const MoreButton = styled.TouchableOpacity`
   display: flex;
@@ -72,6 +130,7 @@ const MoreButton = styled.TouchableOpacity`
   height: 32px;
   width:32px;
 `;
+
 const AppointmentCartLabel = styled.Text`
   font-size: 16px;
   margin-left: 10px;
@@ -92,12 +151,13 @@ const AppointmentCart = styled.View`
   padding: 20px 25px;
   border-radius: 10px;
   background: white;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 15px;
 `;
 
 const PatientDetails = styled(Container)`
-  flex: 0.27;
-  background-color: #fbfbfb;
+  flex: 0.25;
+  background-color: white;
 `;
 const PatientAppointments = styled.View`
   flex: 1;
@@ -123,11 +183,8 @@ const PatientFullName = styled.Text`
   font-size: 24px;
   line-height: 30px;
   margin-bottom: 3px;
+  margin-left: 10px;
 `;
-
-// const Info = styled.View`
-//   padding-left: 20px;
-// `;
 
 PatientScreen.navigationOptions = {
   title: "Карта пациента",
