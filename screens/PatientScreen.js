@@ -77,7 +77,7 @@ const PatientScreen = ({ navigation }) => {
                     color="#a3a3a3"
                   />
                   <AppointmentCartLabel>
-                    Боль:
+                    Симптомы:
                     <Text style={{ fontWeight: "bold" }}>
                       &nbsp;{appointment.pain}
                     </Text>

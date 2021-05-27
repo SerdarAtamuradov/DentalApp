@@ -1,10 +1,10 @@
 // import { img1, img2, img3 } from "./images";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SectionList } from "react-native";
+import { StyleSheet, Text, View, SectionList, Alert } from "react-native";
 import styled from "styled-components/native";
 import { Appointment, SectionTitle } from "../components";
 import { Ionicons } from "@expo/vector-icons";
-import axios from "axios";
+// import axios from "axios";
 
 import Swipeable from "react-native-swipeable-row";
 import { appointmentsApi } from "../utils/api";
@@ -195,16 +195,54 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(fetchAppointments, []);
 
+  const removeAppointment = (id) => {
+    Alert.alert(
+      "Удаление приема",
+      "Вы действительно хотите удалить прием?",
+      [
+        {
+          text: "Отмена",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Удалить",
+          onPress: () => {
+            setIsLoading(true);
+            appointmentsApi
+              .remove(id)
+              .then(() => {
+                fetchAppointments();
+              })
+              .catch(() => {
+                setIsLoading(false);
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <Container>
       {data && (
         <SectionList
           sections={data}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item) => item._id}
           onRefresh={fetchAppointments}
           refreshing={isLoading}
           renderItem={({ item }) => (
-            <Swipeable rightButtons={[<Text>Left</Text>, <Text>Right</Text>]}>
+            <Swipeable
+              rightButtons={[
+                <SwipeViewButton
+                  onPress={removeAppointment.bind(this, item._id)}
+                  style={{ backgroundColor: "#F85A5A" }}
+                >
+                  <Ionicons name="ios-close" size={48} color="white" />
+                </SwipeViewButton>,
+              ]}
+            >
               <Appointment navigate={navigation.navigate} item={item} />
             </Swipeable>
           )}
@@ -228,33 +266,6 @@ HomeScreen.navigationOptions = {
     shadowOpacity: 0.8,
   },
 };
-
-// class HomeScreen extends React.Component {
-//   static navigationOptions = {
-//     title: "Пациенты",
-//     headerTintColor: "#2A86FF",
-//   };
-//   render() {
-//     const { navigation } = this.props;
-//     return (
-//       <Container>
-//         <SectionList
-//           sections={DATA}
-//           keyExtractor={(item, index) => index}
-//           renderItem={({ item }) => (
-//             <Appointment navigate={navigation.navigate} {...item} />
-//           )}
-//           renderSectionHeader={({ section: { title } }) => (
-//             <SectionTitle>{title}</SectionTitle>
-//           )}
-//         />
-//         <PlusButton>
-//           <Ionicons name="ios-add" size={38} color="white" />
-//         </PlusButton>
-//       </Container>
-//     );
-//   }
-// }
 
 const PlusButton = styled.TouchableOpacity`
   align-items: center;
@@ -286,3 +297,29 @@ const Container = styled.View`
 `;
 
 export default HomeScreen;
+// class HomeScreen extends React.Component {
+//   static navigationOptions = {
+//     title: "Пациенты",
+//     headerTintColor: "#2A86FF",
+//   };
+//   render() {
+//     const { navigation } = this.props;
+//     return (
+//       <Container>
+//         <SectionList
+//           sections={DATA}
+//           keyExtractor={(item, index) => index}
+//           renderItem={({ item }) => (
+//             <Appointment navigate={navigation.navigate} {...item} />
+//           )}
+//           renderSectionHeader={({ section: { title } }) => (
+//             <SectionTitle>{title}</SectionTitle>
+//           )}
+//         />
+//         <PlusButton>
+//           <Ionicons name="ios-add" size={38} color="white" />
+//         </PlusButton>
+//       </Container>
+//     );
+//   }
+// }
