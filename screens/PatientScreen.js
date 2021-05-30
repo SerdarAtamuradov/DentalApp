@@ -43,7 +43,7 @@ const PatientScreen = ({ navigation }) => {
           {navigation.getParam("patient", {}).phone}
         </GrayText>
         <GrayText style={{ marginLeft: 13 }}>
-          {navigation.getParam("patient", {}).phone}
+          {navigation.getParam("patient", {}).address}
         </GrayText>
 
         <PatientButtons>
