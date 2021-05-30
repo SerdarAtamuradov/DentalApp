@@ -22,6 +22,7 @@ const Appointment = ({ navigate, item }) => {
       <View style={{ flex: 1 }}>
         <FullName>{patient.fullname}</FullName>
         <GrayText>{diagnosis}</GrayText>
+        <GrayText>Sowetskaya</GrayText>
       </View>
       <Badge active={active}>{time}</Badge>
     </GroupItem>

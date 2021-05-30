@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ActivityIndicator, Linking } from "react-native";
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  Linking,
+  ScrollView,
+} from "react-native";
 import styled from "styled-components/native";
 import { GrayText, Button, Badge, Container } from "../components";
 import { Foundation, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 import { patientsApi, phoneFormat } from "../utils/api";
+// import { ScrollView } from "react-native-gesture-handler";
 
 const PatientScreen = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
@@ -12,10 +19,13 @@ const PatientScreen = ({ navigation }) => {
 
   useEffect(() => {
     const id = navigation.getParam("patient")._id;
+    // console.log("PatientScreen", navigation.getParam("patient", {}));
     patientsApi
       .show(id)
       .then(({ data }) => {
         setAppointments(data.data.appointments);
+        // console.log("PatientScreen", data.data.appointments);
+        // console.log(navigation.getParam("patient", {}).fullname);
         setIsLoading(false);
       })
       .catch(() => {
@@ -32,10 +42,21 @@ const PatientScreen = ({ navigation }) => {
         <GrayText style={{ marginLeft: 13 }}>
           {navigation.getParam("patient", {}).phone}
         </GrayText>
+        <GrayText style={{ marginLeft: 13 }}>
+          {navigation.getParam("patient", {}).phone}
+        </GrayText>
 
         <PatientButtons>
           <Diagnosis_Therapy>
-            <Button>Диагноз и лечение</Button>
+            <Button
+              children="Добавит прием"
+              onPress={() =>
+                navigation.navigate("AddAppointment", {
+                  fio: navigation.getParam("patient", {}).fullname,
+                  phone: navigation.getParam("patient", {}).phone,
+                })
+              }
+            />
           </Diagnosis_Therapy>
           <PhoneButton>
             <Button
@@ -54,59 +75,63 @@ const PatientScreen = ({ navigation }) => {
 
       <PatientAppointments>
         <Container>
-          <AppointmentText>
-            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Приемы</Text>
-          </AppointmentText>
           {isLoading ? (
             <ActivityIndicator size="large" color="#2A86FF" />
           ) : (
-            appointments.map((appointment) => (
-              <AppointmentCart key={appointment._id}>
-                <MoreButton>
-                  <Ionicons
-                    name="md-more"
-                    size={30}
-                    color="rgba(0, 0, 0, 0.4)"
-                  />
-                </MoreButton>
+            <ScrollView>
+              {/* <AppointmentText>                
+              </AppointmentText> */}
+              <Text style={{ fontWeight: "bold", fontSize: 18, left: 25 }}>
+                Приемы
+              </Text>
+              {appointments.map((appointment) => (
+                <AppointmentCart key={appointment._id}>
+                  <MoreButton>
+                    <Ionicons
+                      name="md-more"
+                      size={30}
+                      color="rgba(0, 0, 0, 0.4)"
+                    />
+                  </MoreButton>
 
-                <AppointmentCartRow>
-                  <FontAwesome5
-                    name="briefcase-medical"
-                    size={18}
-                    color="#a3a3a3"
-                  />
-                  <AppointmentCartLabel>
-                    Симптомы:
-                    <Text style={{ fontWeight: "bold" }}>
-                      &nbsp;{appointment.pain}
-                    </Text>
-                  </AppointmentCartLabel>
-                </AppointmentCartRow>
-                <AppointmentCartRow>
-                  <Foundation
-                    name="clipboard-notes"
-                    size={24}
-                    color="#a3a3a3"
-                    style={{ marginLeft: 2 }}
-                  />
-                  <AppointmentCartLabel>
-                    Диагноз:
-                    <Text style={{ fontWeight: "bold" }}>
-                      &nbsp;{appointment.diagnosis}
-                    </Text>
-                  </AppointmentCartLabel>
-                </AppointmentCartRow>
-                <AppointmentCartRow
-                  style={{ marginTop: 15, justifyContent: "space-between" }}
-                >
-                  <Badge style={{ width: 155 }} active>
-                    {appointment.date} - {appointment.time}
-                  </Badge>
-                  <Badge color="green"> {appointment.price} BYR</Badge>
-                </AppointmentCartRow>
-              </AppointmentCart>
-            ))
+                  <AppointmentCartRow>
+                    <FontAwesome5
+                      name="briefcase-medical"
+                      size={18}
+                      color="#a3a3a3"
+                    />
+                    <AppointmentCartLabel>
+                      Симптомы:
+                      <Text style={{ fontWeight: "bold" }}>
+                        &nbsp;{appointment.pain}
+                      </Text>
+                    </AppointmentCartLabel>
+                  </AppointmentCartRow>
+                  <AppointmentCartRow>
+                    <Foundation
+                      name="clipboard-notes"
+                      size={24}
+                      color="#a3a3a3"
+                      style={{ marginLeft: 2 }}
+                    />
+                    <AppointmentCartLabel>
+                      Диагноз:
+                      <Text style={{ fontWeight: "bold" }}>
+                        &nbsp;{appointment.diagnosis}
+                      </Text>
+                    </AppointmentCartLabel>
+                  </AppointmentCartRow>
+                  <AppointmentCartRow
+                    style={{ marginTop: 15, justifyContent: "space-between" }}
+                  >
+                    <Badge style={{ width: 155 }} active>
+                      {appointment.date} - {appointment.time}
+                    </Badge>
+                    <Badge color="green"> {appointment.price} BYR</Badge>
+                  </AppointmentCartRow>
+                </AppointmentCart>
+              ))}
+            </ScrollView>
           )}
         </Container>
       </PatientAppointments>
@@ -114,11 +139,11 @@ const PatientScreen = ({ navigation }) => {
   );
 };
 
-const AppointmentText = styled.View`     
-  position: absolute;
-  left:40px
-  top:9px;  
-`;
+// const AppointmentText = styled.View`
+//   left: 20px;
+// `;
+// position: absolute;
+// top:9px;  yokarkynynky
 
 const MoreButton = styled.TouchableOpacity`
   display: flex;
@@ -155,10 +180,6 @@ const AppointmentCart = styled.View`
   margin-top: 15px;
 `;
 
-const PatientDetails = styled(Container)`
-  flex: 0.25;
-  background-color: white;
-`;
 const PatientAppointments = styled.View`
   flex: 1;
   background-color: #f8fafd;
@@ -184,6 +205,11 @@ const PatientFullName = styled.Text`
   line-height: 30px;
   margin-bottom: 3px;
   margin-left: 10px;
+`;
+
+const PatientDetails = styled(Container)`
+  flex: 0.28;
+  background-color: white;
 `;
 
 PatientScreen.navigationOptions = {

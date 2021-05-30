@@ -43,14 +43,14 @@ const AddPatientScreen = ({ navigation }) => {
         <Input
           onChange={handleChange.bind(this, "phone")}
           value={values.phone}
-          keyboardType="numeric"
+          keyboardType="phone-pad"
           dataDetectorTypes="phoneNumber"
           style={{ marginTop: 12 }}
         />
       </Item>
       <ButtonView>
         <Button onPress={onSubmit} color="#87CC6F">
-          <Ionicons name="ios-add" size={24} color="white" />
+          {/* <Ionicons name="ios-add" size={24} color="white" /> */}
           <Text>Добавить пациента</Text>
         </Button>
       </ButtonView>
@@ -58,14 +58,14 @@ const AddPatientScreen = ({ navigation }) => {
   );
 };
 
-const AppointmentCartRow = styled.Text`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3.5px;
-  margin-bottom: 3.5px;
-`;
+// const AppointmentCartRow = styled.Text`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 3.5px;
+//   margin-bottom: 3.5px;
+// `;
 
 const ButtonView = styled.View`
   flex: 1;

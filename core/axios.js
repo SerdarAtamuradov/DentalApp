@@ -8,6 +8,6 @@ axios.defaults.baseURL =
     ? manifest.debuggerHost.split(`:`).shift().concat(`:6666`)
     : `api.example.com`);
 
-console.log(axios.defaults.baseURL);
+// console.log(axios.defaults.baseURL);
 
 export default axios;
