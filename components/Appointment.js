@@ -8,7 +8,7 @@ import Badge from "./Badge";
 import getAvatarColor from "../utils/getAvatarColor";
 
 const Appointment = ({ navigate, item }) => {
-  const { patient, diagnosis, active, time } = item;
+  const { patient, pain, active, time } = item;
   const avatarColors = getAvatarColor(patient.fullname[0].toUpperCase());
 
   return (
@@ -21,7 +21,7 @@ const Appointment = ({ navigate, item }) => {
       </Avatar>
       <View style={{ flex: 1 }}>
         <FullName>{patient.fullname}</FullName>
-        <GrayText>{diagnosis}</GrayText>
+        <GrayText>{pain}</GrayText>
         <GrayText>{patient.address}</GrayText>
       </View>
       <Badge active={active}>{time}</Badge>

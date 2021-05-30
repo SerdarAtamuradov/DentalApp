@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text } from "react-native";
+import { Text, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Item, Label, Input } from "native-base";
@@ -27,33 +27,44 @@ const AddPatientScreen = ({ navigation }) => {
         alert("BAD");
       });
   };
+
   return (
     <Container>
-      <Item style={{ marginLeft: 0 }} floatingLabel>
-        <Label>Имя и Фамилия</Label>
-        <Input
-          onChange={handleChange.bind(this, "fullname")}
-          value={values.fullname}
-          style={{ marginTop: 12 }}
-          autoFocus
-        />
-      </Item>
-      <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
-        <Label>Номер телефона</Label>
-        <Input
-          onChange={handleChange.bind(this, "phone")}
-          value={values.phone}
-          keyboardType="phone-pad"
-          dataDetectorTypes="phoneNumber"
-          style={{ marginTop: 12 }}
-        />
-      </Item>
-      <ButtonView>
-        <Button onPress={onSubmit} color="#87CC6F">
-          {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-          <Text>Добавить пациента</Text>
-        </Button>
-      </ButtonView>
+      <ScrollView>
+        <Item style={{ marginLeft: 0 }} floatingLabel>
+          <Label>Имя и Фамилия</Label>
+          <Input
+            onChange={handleChange.bind(this, "fullname")}
+            value={values.fullname}
+            style={{ marginTop: 12 }}
+            autoFocus
+          />
+        </Item>
+        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
+          <Label>Адрес</Label>
+          <Input
+            onChange={handleChange.bind(this, "address")}
+            value={values.address}
+            style={{ marginTop: 12 }}
+          />
+        </Item>
+        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
+          <Label>Номер телефона</Label>
+          <Input
+            onChange={handleChange.bind(this, "phone")}
+            value={values.phone}
+            keyboardType="phone-pad"
+            dataDetectorTypes="phoneNumber"
+            style={{ marginTop: 12 }}
+          />
+        </Item>
+        <ButtonView>
+          <Button onPress={onSubmit} color="#87CC6F">
+            {/* <Ionicons name="ios-add" size={24} color="white" /> */}
+            <Text>Добавить пациента</Text>
+          </Button>
+        </ButtonView>
+      </ScrollView>
     </Container>
   );
 };

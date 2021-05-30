@@ -24,7 +24,7 @@ const PatientScreen = ({ navigation }) => {
       .show(id)
       .then(({ data }) => {
         setAppointments(data.data.appointments);
-        // console.log("PatientScreen", data.data.appointments);
+        console.log("PatientScreen", data.data.appointments);
         // console.log(navigation.getParam("patient", {}).fullname);
         setIsLoading(false);
       })
@@ -53,7 +53,7 @@ const PatientScreen = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate("AddAppointment", {
                   fio: navigation.getParam("patient", {}).fullname,
-                  phone: navigation.getParam("patient", {}).phone,
+                  address: navigation.getParam("patient", {}).address,
                 })
               }
             />
@@ -82,7 +82,7 @@ const PatientScreen = ({ navigation }) => {
               {/* <AppointmentText>                
               </AppointmentText> */}
               <Text style={{ fontWeight: "bold", fontSize: 18, left: 25 }}>
-                Приемы
+                Посещение
               </Text>
               {appointments.map((appointment) => (
                 <AppointmentCart key={appointment._id}>

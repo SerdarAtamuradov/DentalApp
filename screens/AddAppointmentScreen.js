@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, ScrollView, View } from "react-native";
+import { Text, ScrollView, Linking, View } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Item, Label, Input } from "native-base";
@@ -53,12 +53,12 @@ const AddAppointmentScreen = ({ navigation }) => {
   return (
     <Container>
       <ScrollView>
-        <View style={{ marginBottom: 10 }}>
+        <View style={{ marginBottom: 5 }}>
           <PatientFullName>
             {navigation.getParam("fio", "NO-FIO")}
           </PatientFullName>
-          <GrayText style={{ marginLeft: 13 }}>
-            {navigation.getParam("phone", "NO-phone")}
+          <GrayText style={{ paddingLeft: 10 }}>
+            {navigation.getParam("address", "NO-address")}
           </GrayText>
         </View>
         <Item style={{ marginLeft: 0 }} floatingLabel>
@@ -109,7 +109,6 @@ const PatientFullName = styled.Text`
   font-weight: bold;
   font-size: 24px;
   line-height: 30px;
-  margin-bottom: 3px;
   margin-left: 5px;
 `;
 
@@ -118,7 +117,7 @@ const PatientFullName = styled.Text`
 // `;
 
 AddAppointmentScreen.navigationOptions = {
-  title: "Добавить прием",
+  title: "Добавить осещение",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,
