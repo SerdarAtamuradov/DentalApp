@@ -9,6 +9,7 @@ import { Button, Container, GrayText } from "../components";
 
 const AddAppointmentScreen = ({ navigation }) => {
   const [values, setValues] = useState({});
+  const { fullname, phone, address } = navigation.state.params;
 
   const handleChange = (name, e) => {
     const text = e.nativeEvent.text;
@@ -22,7 +23,7 @@ const AddAppointmentScreen = ({ navigation }) => {
     patientsApi
       .add(values)
       .then(() => {
-        navigation.navigate("Home");
+        navigation.navigate("Patient");
       })
       .catch((e) => {
         alert("BAD");
@@ -35,7 +36,7 @@ const AddAppointmentScreen = ({ navigation }) => {
   // useEffect(() => {
   //   // const id = navigation.getParam("appointment")._id;
   //   // console.log(navigation.getParam("patient")._id);
-  //   // console.log(id);
+  //   // console.log(navigation);
   //   // console.log("AddAppointmentScreens", navigation);
   //   appointmentsApi
   //     .get()
@@ -54,12 +55,8 @@ const AddAppointmentScreen = ({ navigation }) => {
     <Container>
       <ScrollView>
         <View style={{ marginBottom: 5 }}>
-          <PatientFullName>
-            {navigation.getParam("fio", "NO-FIO")}
-          </PatientFullName>
-          <GrayText style={{ paddingLeft: 10 }}>
-            {navigation.getParam("address", "NO-address")}
-          </GrayText>
+          <PatientFullName>{fullname}</PatientFullName>
+          <GrayText style={{ paddingLeft: 10 }}>{address}</GrayText>
         </View>
         <Item style={{ marginLeft: 0 }} floatingLabel>
           <Label> asdas</Label>
@@ -117,7 +114,7 @@ const PatientFullName = styled.Text`
 // `;
 
 AddAppointmentScreen.navigationOptions = {
-  title: "Добавить осещение",
+  title: "Добавить посещение",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,

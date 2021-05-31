@@ -17,15 +17,17 @@ const PatientScreen = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const patient = navigation.getParam("patient", {});
+
   useEffect(() => {
-    const id = navigation.getParam("patient")._id;
-    // console.log("PatientScreen", navigation.getParam("patient", {}));
+    const id = patient._id;
+    // console.log("PatientScreen", patient);
     patientsApi
       .show(id)
       .then(({ data }) => {
         setAppointments(data.data.appointments);
-        console.log("PatientScreen", data.data.appointments);
-        // console.log(navigation.getParam("patient", {}).fullname);
+        // console.log("PatientScreen", data.data.appointments);
+        // console.log(patient.fullname);
         setIsLoading(false);
       })
       .catch(() => {
@@ -36,35 +38,30 @@ const PatientScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <PatientDetails>
-        <PatientFullName>
-          {navigation.getParam("patient", {}).fullname}
-        </PatientFullName>
-        <GrayText style={{ marginLeft: 13 }}>
-          {navigation.getParam("patient", {}).phone}
-        </GrayText>
-        <GrayText style={{ marginLeft: 13 }}>
-          {navigation.getParam("patient", {}).address}
-        </GrayText>
+        <PatientFullName>{patient.fullname}</PatientFullName>
+        <GrayText style={{ marginLeft: 13 }}>{patient.phone}</GrayText>
+        <GrayText style={{ marginLeft: 13 }}>{patient.address}</GrayText>
 
         <PatientButtons>
           <Diagnosis_Therapy>
             <Button
-              children="Добавит прием"
-              onPress={() =>
-                navigation.navigate("AddAppointment", {
-                  fio: navigation.getParam("patient", {}).fullname,
-                  address: navigation.getParam("patient", {}).address,
-                })
-              }
+              children="Добавит новый осмотр"
+              // onPress={() =>
+              //   navigation.navigate("AddAppointment", {
+              //     fio: patient.fullname,
+              //     address: patient.address,
+              //   })
+              // }
+              onPress={navigation.navigate.bind(
+                this,
+                "AddAppointment",
+                patient
+              )}
             />
           </Diagnosis_Therapy>
           <PhoneButton>
             <Button
-              onPress={() =>
-                Linking.openURL(
-                  "tel:" + navigation.getParam("patient", {}).phone
-                )
-              }
+              onPress={() => Linking.openURL("tel:" + patient.phone)}
               color="#84D269"
             >
               <Foundation name="telephone" size={22} color="white" />
@@ -79,20 +76,18 @@ const PatientScreen = ({ navigation }) => {
             <ActivityIndicator size="large" color="#2A86FF" />
           ) : (
             <ScrollView>
-              {/* <AppointmentText>                
-              </AppointmentText> */}
               <Text style={{ fontWeight: "bold", fontSize: 18, left: 25 }}>
                 Посещение
               </Text>
               {appointments.map((appointment) => (
                 <AppointmentCart key={appointment._id}>
-                  <MoreButton>
+                  {/* <MoreButton>
                     <Ionicons
                       name="md-more"
                       size={30}
                       color="rgba(0, 0, 0, 0.4)"
                     />
-                  </MoreButton>
+                  </MoreButton> */}
 
                   <AppointmentCartRow>
                     <FontAwesome5

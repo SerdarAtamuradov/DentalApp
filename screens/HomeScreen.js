@@ -1,4 +1,3 @@
-// import { img1, img2, img3 } from "./images";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, SectionList, Alert } from "react-native";
 import styled from "styled-components/native";
@@ -134,36 +133,12 @@ const Container = styled.View`
 `;
 
 export default HomeScreen;
-// class HomeScreen extends React.Component {
-//   static navigationOptions = {
-//     title: "Пациенты",
-//     headerTintColor: "#2A86FF",
-//   };
-//   render() {
-//     const { navigation } = this.props;
-//     return (
-//       <Container>
-//         <SectionList
-//           sections={DATA}
-//           keyExtractor={(item, index) => index}
-//           renderItem={({ item }) => (
-//             <Appointment navigate={navigation.navigate} {...item} />
-//           )}
-//           renderSectionHeader={({ section: { title } }) => (
-//             <SectionTitle>{title}</SectionTitle>
-//           )}
-//         />
-//         <PlusButton>
-//           <Ionicons name="ios-add" size={38} color="white" />
-//         </PlusButton>
-//       </Container>
-//     );
-//   }
-// }
+
 // {arr.map(item => {
 //   let id = item.data[0]._id;
 //   console.log(id);
 // })}
+
 /*
 import file from './data1.js';
 import db from './data2.js';
