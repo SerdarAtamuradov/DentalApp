@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Text, ScrollView, Linking, View, TextInput } from "react-native";
-// import { NavigationActions } from "react-navigation";
 import styled from "styled-components/native";
-// import { Ionicons } from "@expo/vector-icons";
 import { Item, Label, Input, DatePicker } from "native-base";
 import { appointmentsApi } from "../utils/api";
 import { Button, Container, GrayText } from "../components";
-// import DatePicker from "react-native-datepicker";
 
-// , Picker, DatePicker
-// import { ScrollView } from "react-native-gesture-handler";
-// "@react-native-community/datetimepicker": "^3.5.0",
-
-const AddAppointmentScreen = ({ navigation }) => {
-  // const [values, setValues] = useState({});
+const FormalizationScreen = ({ navigation }) => {
   const [values, setValues] = useState({});
 
   const { fullname, phone, address } = navigation.getParam("patient");
 
   const fieldsName = {
-    pain: "Симптомы",
-    price: "Цена",
-    date: "Дата",
-    time: "Время",
-    complaint: "жалобы",
-    heat: "температура",
-    pulse: "пульс",
-    pressure: "давление",
+    diagnosis: "Диагноз",
+    prescription: "назначения",
+    sickList: "больничный лист",
   };
 
   const setFieldValue = (name, value) => {
@@ -41,20 +28,11 @@ const AddAppointmentScreen = ({ navigation }) => {
     setFieldValue(name, text);
   };
 
-  const handlePressureChange = (name, e) => {
-    let str = e.nativeEvent.text;
-    let arr = str.split(",");
-    setFieldValue(name, arr);
-  };
-
-  const onFormalize = () => {
+  const onSubmit = () => {
     appointmentsApi
       .add(values)
       .then(() => {
-        navigation.navigate.bind(this, "Formalization", {
-          data: values,
-          patient: navigation.getParam("patient"),
-        });
+        navigation.navigate("Home", { lastUpdate: new Date() });
       })
       .catch((e) => {
         if (e.response.data && e.response.data.message) {
@@ -65,27 +43,6 @@ const AddAppointmentScreen = ({ navigation }) => {
         }
       });
   };
-
-  // const [appointments, setAppointments] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   // const id = navigation.getParam("appointment")._id;
-  //   // console.log(navigation.getParam("patient")._id);
-  //   // console.log(navigation);
-  //   // console.log("AddAppointmentScreens", navigation);
-  //   appointmentsApi
-  //     .get()
-  //     .then(({ data }) => {
-  //       setAppointments(data.data);
-  //       // console.log("AddAppointmentScreen", data.data.appointments);
-  //       // console.log(navigation.getParam("appointments", {}));
-  //       setIsLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setIsLoading(false);
-  //     });
-  // }, []);
 
   return (
     <Container>
@@ -113,15 +70,6 @@ const AddAppointmentScreen = ({ navigation }) => {
             />
           </View>
         </Item>
-        {/* <Item style={{ marginLeft: 0 }} floatingLabel>
-          <Label>Дата</Label>
-          <Input
-            onChange={handleInputChange.bind(this, "date")}
-            value={values.fullname}
-            style={{ marginTop: 12 }}
-            autoFocus
-          />
-        </Item> */}
         <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
           <Label>Жалобы</Label>
           <Input
@@ -159,9 +107,9 @@ const AddAppointmentScreen = ({ navigation }) => {
         </Item>
       </ScrollView>
       <ButtonView>
-        <Button onPress={onFormalize} color="#87CC6F">
+        <Button onPress={onSubmit} color="#87CC6F">
           {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-          <Text>Сформулировать диагноз и назначение</Text>
+          <Text>Готово!</Text>
         </Button>
       </ButtonView>
     </Container>
@@ -172,10 +120,6 @@ const ButtonView = styled.View`
   margin-top: 30px;
 `;
 
-const TimeRow = styled.View`
-  flex-direction: row;
-`;
-
 const PatientFullName = styled.Text`
   font-weight: bold;
   font-size: 24px;
@@ -183,8 +127,8 @@ const PatientFullName = styled.Text`
   margin-left: 5px;
 `;
 
-AddAppointmentScreen.navigationOptions = {
-  title: "Добавить новый осмотр",
+FormalizationScreen.navigationOptions = {
+  title: "Диагноз и назначение",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,
@@ -192,4 +136,4 @@ AddAppointmentScreen.navigationOptions = {
   },
 };
 
-export default AddAppointmentScreen;
+export default FormalizationScreen;

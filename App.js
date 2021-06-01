@@ -23,6 +23,9 @@ const AppNavigator = createStackNavigator(
     AddAppointment: {
       screen: AddAppointmentScreen,
     },
+    Formalization: {
+      screen: FormalizationScreen,
+    },
   },
   {
     initialRouteName: "Home",
