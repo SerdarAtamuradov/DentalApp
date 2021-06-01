@@ -1,37 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { Text, ScrollView, Linking, View } from "react-native";
+import { Text, ScrollView, Linking, View, TextInput } from "react-native";
+// import { NavigationActions } from "react-navigation";
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
-import { Item, Label, Input } from "native-base";
-import { patientsApi, appointmentsApi } from "../utils/api";
+// import { Ionicons } from "@expo/vector-icons";
+import { Item, Label, Input, DatePicker } from "native-base";
+import { appointmentsApi } from "../utils/api";
 import { Button, Container, GrayText } from "../components";
+// import DatePicker from "react-native-datepicker";
+
+// , Picker, DatePicker
 // import { ScrollView } from "react-native-gesture-handler";
+// "@react-native-community/datetimepicker": "^3.5.0",
 
 const AddAppointmentScreen = ({ navigation }) => {
+  // const [values, setValues] = useState({});
   const [values, setValues] = useState({});
-  const { fullname, phone, address } = navigation.state.params;
 
-  const handleChange = (name, e) => {
-    const text = e.nativeEvent.text;
+  const { fullname, phone, address } = navigation.getParam("patient");
+
+  const setFieldValue = (name, value) => {
     setValues({
       ...values,
-      [name]: text,
+      [name]: value,
     });
   };
 
+  const handleInputChange = (name, e) => {
+    const text = e.nativeEvent.text;
+    setFieldValue(name, text);
+  };
+
   const onSubmit = () => {
-    patientsApi
+    appointmentsApi
       .add(values)
       .then(() => {
-        navigation.navigate("Patient");
+        navigation.navigate("Home", { lastUpdate: new Date() });
       })
       .catch((e) => {
-        alert("BAD");
+        if (e.response.data && e.response.data.message) {
+          e.response.data.message.forEach((err) => {
+            const fieldName = err.param;
+            alert(`Ошибка! Поле "${fieldsName[fieldName]}" указано неверно.`);
+          });
+        }
       });
   };
 
-  const [appointments, setAppointments] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [appointments, setAppointments] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   // const id = navigation.getParam("appointment")._id;
@@ -58,32 +74,76 @@ const AddAppointmentScreen = ({ navigation }) => {
           <PatientFullName>{fullname}</PatientFullName>
           <GrayText style={{ paddingLeft: 10 }}>{address}</GrayText>
         </View>
-        <Item style={{ marginLeft: 0 }} floatingLabel>
-          <Label> asdas</Label>
+        <Item style={{ marginLeft: 0 }}>
+          <View style={{ flex: 1 }}>
+            <Input
+              placeholder="Выберите дату"
+              onChange={handleInputChange.bind(this, "date")}
+              value={values.date}
+              style={{ marginTop: 12 }}
+              autoFocus
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Input
+              placeholder="Выберите время"
+              onChange={handleInputChange.bind(this, "time")}
+              value={values.time}
+              style={{ marginTop: 12 }}
+            />
+          </View>
+        </Item>
+        {/* <Item style={{ marginLeft: 0 }} floatingLabel>
+          <Label>Дата</Label>
           <Input
-            onChange={handleChange.bind(this, "fullname")}
+            onChange={handleInputChange.bind(this, "date")}
             value={values.fullname}
             style={{ marginTop: 12 }}
             autoFocus
           />
-        </Item>
+        </Item> */}
         <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
-          <Label>Номер телефона</Label>
+          <Label>Жалобы</Label>
           <Input
-            onChange={handleChange.bind(this, "phone")}
-            value={values.phone}
-            keyboardType="phone-pad"
-            dataDetectorTypes="phoneNumber"
+            onChange={handleInputChange.bind(this, "complaint")}
+            value={values.complaint}
             style={{ marginTop: 12 }}
           />
         </Item>
-        <ButtonView>
-          <Button onPress={onSubmit} color="#87CC6F">
-            {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-            <Text>Добавить пациента</Text>
-          </Button>
-        </ButtonView>
+        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
+          <Label>Температура</Label>
+          <Input
+            onChange={handleInputChange.bind(this, "heat")}
+            value={values.heat}
+            keyboardType="numeric"
+            style={{ marginTop: 12 }}
+          />
+        </Item>
+        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
+          <Label>Пульс</Label>
+          <Input
+            onChange={handleInputChange.bind(this, "pulse")}
+            value={values.pulse}
+            keyboardType="numeric"
+            style={{ marginTop: 12 }}
+          />
+        </Item>
+        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
+          <Label>Давление</Label>
+          <Input
+            onChange={handleInputChange.bind(this, "pressure")}
+            value={values.pressure}
+            keyboardType="numeric"
+            style={{ marginTop: 12 }}
+          />
+        </Item>
       </ScrollView>
+      <ButtonView>
+        <Button onPress={onSubmit} color="#87CC6F">
+          {/* <Ionicons name="ios-add" size={24} color="white" /> */}
+          <Text>Добавить пациента</Text>
+        </Button>
+      </ButtonView>
     </Container>
   );
 };
@@ -102,6 +162,10 @@ const ButtonView = styled.View`
   margin-top: 30px;
 `;
 
+const TimeRow = styled.View`
+  flex-direction: row;
+`;
+
 const PatientFullName = styled.Text`
   font-weight: bold;
   font-size: 24px;
@@ -114,7 +178,7 @@ const PatientFullName = styled.Text`
 // `;
 
 AddAppointmentScreen.navigationOptions = {
-  title: "Добавить посещение",
+  title: "Добавить новый осмотр",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,

@@ -72,6 +72,15 @@ const HomeScreen = ({ navigation }) => {
             <Swipeable
               rightButtons={[
                 <SwipeViewButton
+                  // onPress={navigation.navigate.bind(this, "EditAppointment", {
+                  //   AppointmentId: item._id,
+                  //   Appointment: item,
+                  // })}
+                  style={{ backgroundColor: "#B4C1CB" }}
+                >
+                  <Ionicons name="md-create" size={28} color="white" />
+                </SwipeViewButton>,
+                <SwipeViewButton
                   onPress={removeAppointment.bind(this, item._id)}
                   style={{ backgroundColor: "#F85A5A" }}
                 >

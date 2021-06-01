@@ -20,7 +20,7 @@ const PatientScreen = ({ navigation }) => {
   const patient = navigation.getParam("patient", {});
 
   useEffect(() => {
-    const id = patient._id;
+    const id = navigation.getParam("patient")._id;
     // console.log("PatientScreen", patient);
     patientsApi
       .show(id)
@@ -52,11 +52,10 @@ const PatientScreen = ({ navigation }) => {
               //     address: patient.address,
               //   })
               // }
-              onPress={navigation.navigate.bind(
-                this,
-                "AddAppointment",
-                patient
-              )}
+              onPress={navigation.navigate.bind(this, "AddAppointment", {
+                patientId: patient._id,
+                patient: patient,
+              })}
             />
           </Diagnosis_Therapy>
           <PhoneButton>
