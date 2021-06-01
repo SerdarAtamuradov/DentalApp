@@ -7,6 +7,8 @@ import {
   PatientScreen,
   AddPatientScreen,
   AddAppointmentScreen,
+  FormalizationScreen,
+  DetailsScreen,
 } from "./screens/";
 
 const AppNavigator = createStackNavigator(
@@ -25,6 +27,9 @@ const AppNavigator = createStackNavigator(
     },
     Formalization: {
       screen: FormalizationScreen,
+    },
+    Details: {
+      screen: DetailsScreen,
     },
   },
   {

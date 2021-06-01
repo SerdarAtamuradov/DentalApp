@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Text, ScrollView, Linking, View, TextInput } from "react-native";
+import React, { useState } from "react";
+import { Text, ScrollView, View, TextInput } from "react-native";
 import styled from "styled-components/native";
-import { Item, Label, Input, DatePicker } from "native-base";
+import { Item, Label, Input, Textarea, CheckBox, Body } from "native-base";
 import { appointmentsApi } from "../utils/api";
 import { Button, Container, GrayText } from "../components";
 
 const FormalizationScreen = ({ navigation }) => {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    diagnosis: "",
+    prescription: "Принимать указанные таблетки",
+    sickList: "Да",
+  });
 
-  const { fullname, phone, address } = navigation.getParam("patient");
+  const { fullname, address } = navigation.getParam("patient");
 
   const fieldsName = {
     diagnosis: "Диагноз",
-    prescription: "назначения",
-    sickList: "больничный лист",
+    prescription: "Назначения",
+    sickList: "Больничный лист",
   };
 
   const setFieldValue = (name, value) => {
@@ -32,14 +36,15 @@ const FormalizationScreen = ({ navigation }) => {
     appointmentsApi
       .add(values)
       .then(() => {
-        navigation.navigate("Home", { lastUpdate: new Date() });
+        navigation.navigate("Home");
       })
       .catch((e) => {
         if (e.response.data && e.response.data.message) {
-          e.response.data.message.forEach((err) => {
-            const fieldName = err.param;
-            alert(`Ошибка! Поле "${fieldsName[fieldName]}" указано неверно.`);
-          });
+          console.log(e.response);
+          // e.response.data.message.forEach((err) => {
+          //   const fieldName = err.param;
+          //   alert(`Ошибка! Поле "${fieldsName[fieldName]}" указано неверно.`);
+          // });
         }
       });
   };
@@ -51,67 +56,54 @@ const FormalizationScreen = ({ navigation }) => {
           <PatientFullName>{fullname}</PatientFullName>
           <GrayText style={{ paddingLeft: 10 }}>{address}</GrayText>
         </View>
-        <Item style={{ marginLeft: 0 }}>
-          <View style={{ flex: 1 }}>
-            <Input
-              placeholder="Выберите дату"
-              onChange={handleInputChange.bind(this, "date")}
-              value={values.date}
-              style={{ marginTop: 12 }}
-              autoFocus
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Input
-              placeholder="Выберите время"
-              onChange={handleInputChange.bind(this, "time")}
-              value={values.time}
-              style={{ marginTop: 12 }}
-            />
-          </View>
-        </Item>
         <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
-          <Label>Жалобы</Label>
+          <Label>Диагноз</Label>
           <Input
-            onChange={handleInputChange.bind(this, "complaint")}
-            value={values.complaint}
+            onChange={handleInputChange.bind(this, "diagnosis")}
+            value={values.diagnosis}
             style={{ marginTop: 12 }}
           />
         </Item>
         <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
-          <Label>Температура</Label>
-          <Input
-            onChange={handleInputChange.bind(this, "heat")}
-            value={values.heat}
-            keyboardType="numeric"
+          <Label>Назначения</Label>
+          {/*<Input
+            onChange={handleInputChange.bind(this, "prescription")}
+            value={values.prescription}
             style={{ marginTop: 12 }}
+          /> */}
+          <TextInput
+            style={{ marginTop: 12 }}
+            underlineColorAndroid="transparent"
+            placeholder="Назначения"
+            placeholderTextColor="grey"
+            numberOfLines={5}
+            multiline={true}
+            onChangeText={handleInputChange.bind(this, "prescription")}
+            value={values.prescription}
           />
         </Item>
-        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
-          <Label>Пульс</Label>
-          <Input
-            onChange={handleInputChange.bind(this, "pulse")}
-            value={values.pulse}
-            keyboardType="numeric"
+        <Item style={{ marginTop: 20, marginLeft: 0 }}>
+          <Label>Больничный лист</Label>
+          {/* <Input
+            onChange={handleInputChange.bind(this, "sickList")}
+            value={values.sickList}
             style={{ marginTop: 12 }}
+          /> */}
+          <CheckBox
+            checked={true}
+            onPress={handleInputChange.bind(this, "sickList")}
           />
+          <Body>
+            <Text>Да/Нет</Text>
+          </Body>
         </Item>
-        <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
-          <Label>Давление</Label>
-          <Input
-            onChange={handlePressureChange.bind(this, "pressure")}
-            value={values.pressure}
-            keyboardType="numeric"
-            style={{ marginTop: 12 }}
-          />
-        </Item>
+        <ButtonView>
+          <Button onPress={onSubmit} color="#87CC6F">
+            {/* <Ionicons name="ios-add" size={24} color="white" /> */}
+            <Text>Готово!</Text>
+          </Button>
+        </ButtonView>
       </ScrollView>
-      <ButtonView>
-        <Button onPress={onSubmit} color="#87CC6F">
-          {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-          <Text>Готово!</Text>
-        </Button>
-      </ButtonView>
     </Container>
   );
 };

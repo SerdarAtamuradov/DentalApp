@@ -3,3 +3,4 @@ export { default as PatientScreen } from "./PatientScreen";
 export { default as AddPatientScreen } from "./AddPatientScreen";
 export { default as AddAppointmentScreen } from "./AddAppointmentScreen";
 export { default as FormalizationScreen } from "./FormalizationScreen";
+export { default as DetailsScreen } from "./DetailsScreen";

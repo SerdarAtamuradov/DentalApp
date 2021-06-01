@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import { GrayText, Button, Badge, Container } from "../components";
-import { Foundation, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Foundation, FontAwesome5 } from "@expo/vector-icons";
 
 import { patientsApi, phoneFormat } from "../utils/api";
 // import { ScrollView } from "react-native-gesture-handler";
@@ -97,7 +97,7 @@ const PatientScreen = ({ navigation }) => {
                     <AppointmentCartLabel>
                       Симптомы:
                       <Text style={{ fontWeight: "bold" }}>
-                        &nbsp;{appointment.pain}
+                        &nbsp;{appointment.complaint}
                       </Text>
                     </AppointmentCartLabel>
                   </AppointmentCartRow>
@@ -121,7 +121,17 @@ const PatientScreen = ({ navigation }) => {
                     <Badge style={{ width: 155 }} active>
                       {appointment.date} - {appointment.time}
                     </Badge>
-                    <Badge color="green"> {appointment.price} BYR</Badge>
+                    <Badge
+                      color="green"
+                      onPress={() =>
+                        navigation.navigate("Details", {
+                          appointmentDetails: appointment,
+                          patient: patient,
+                        })
+                      }
+                    >
+                      Детали
+                    </Badge>
                   </AppointmentCartRow>
                 </AppointmentCart>
               ))}

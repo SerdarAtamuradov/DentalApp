@@ -1,32 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { Text, ScrollView, Linking, View, TextInput } from "react-native";
+import { Text, ScrollView, View } from "react-native";
 // import { NavigationActions } from "react-navigation";
 import styled from "styled-components/native";
 // import { Ionicons } from "@expo/vector-icons";
-import { Item, Label, Input, DatePicker } from "native-base";
+import { Item, Label, Input } from "native-base";
 import { appointmentsApi } from "../utils/api";
 import { Button, Container, GrayText } from "../components";
-// import DatePicker from "react-native-datepicker";
-
-// , Picker, DatePicker
-// import { ScrollView } from "react-native-gesture-handler";
-// "@react-native-community/datetimepicker": "^3.5.0",
 
 const AddAppointmentScreen = ({ navigation }) => {
+  const [values, setValues] = useState({
+    // pain: "Кашель",
+    // diagnosis: "",
+    // price: 5,
+    date:
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate(),
+    time: "08:00",
+    complaint: "Кашель, боль в горле",
+    heat: "37",
+    pulse: "70",
+    pressure: "[120, 80]",
+    // prescription: "Принимать указанные таблетки",
+    // sickList: true,
+    patient: navigation.getParam("patientId"),
+  });
   // const [values, setValues] = useState({});
-  const [values, setValues] = useState({});
 
-  const { fullname, phone, address } = navigation.getParam("patient");
+  const { fullname, address } = navigation.getParam("patient");
 
   const fieldsName = {
-    pain: "Симптомы",
-    price: "Цена",
+    // pain: "Симптомы",
+    diagnosis: "Диагноз",
+    // price: "Цена",
     date: "Дата",
     time: "Время",
-    complaint: "жалобы",
-    heat: "температура",
-    pulse: "пульс",
-    pressure: "давление",
+    complaint: "Жалобы",
+    heat: "Температура",
+    pulse: "Пульс",
+    pressure: "Давление",
+    prescription: "Назначения",
+    sickList: "Больничный лист",
   };
 
   const setFieldValue = (name, value) => {
@@ -42,50 +58,43 @@ const AddAppointmentScreen = ({ navigation }) => {
   };
 
   const handlePressureChange = (name, e) => {
-    let str = e.nativeEvent.text;
+    let text = e.nativeEvent.text;
+    let str = text.substring(1, text.length - 1);
     let arr = str.split(",");
-    setFieldValue(name, arr);
+    // arr.forEach((item) => parseInt(item));
+    let numArr = arr.map((item) => parseInt(item, 10));
+    // console.log(arr);
+    setFieldValue(name, numArr);
+    // return arr;
   };
 
   const onFormalize = () => {
+    // console.log(values);
     appointmentsApi
       .add(values)
-      .then(() => {
-        navigation.navigate.bind(this, "Formalization", {
+      .then(
+        navigation.navigate("Formalization", {
           data: values,
           patient: navigation.getParam("patient"),
-        });
-      })
+        })
+      )
       .catch((e) => {
         if (e.response.data && e.response.data.message) {
-          e.response.data.message.forEach((err) => {
-            const fieldName = err.param;
-            alert(`Ошибка! Поле "${fieldsName[fieldName]}" указано неверно.`);
-          });
+          console.log(e.response);
+          // e.response.data.message.forEach((err) => {
+          //   const fieldName = err.param;
+          //   console.log(e.response);
+          //   alert(`Ошибка! Поле "${fieldsName[fieldName]}" указано неверно.`);
+          // });
         }
       });
+    // return navigation.navigate("Formalization", {
+    //   data: values,
+    //   patient: navigation.getParam("patient"),
+    // newAppointmentId: navigation.getParam("values")._id,
+    // newAppointmentId: values._id,
+    // });
   };
-
-  // const [appointments, setAppointments] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   // const id = navigation.getParam("appointment")._id;
-  //   // console.log(navigation.getParam("patient")._id);
-  //   // console.log(navigation);
-  //   // console.log("AddAppointmentScreens", navigation);
-  //   appointmentsApi
-  //     .get()
-  //     .then(({ data }) => {
-  //       setAppointments(data.data);
-  //       // console.log("AddAppointmentScreen", data.data.appointments);
-  //       // console.log(navigation.getParam("appointments", {}));
-  //       setIsLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setIsLoading(false);
-  //     });
-  // }, []);
 
   return (
     <Container>
@@ -157,13 +166,21 @@ const AddAppointmentScreen = ({ navigation }) => {
             style={{ marginTop: 12 }}
           />
         </Item>
+        <ButtonView>
+          <Button
+            onPress={onFormalize}
+            //   navigation.navigate("Formalization", {
+            //     data: values,
+            //     patient: navigation.getParam("patient"),
+            //   })
+            // }
+            color="#87CC6F"
+          >
+            {/* <Ionicons name="ios-add" size={24} color="white" /> */}
+            <Text>Сформулировать диагноз и назначение</Text>
+          </Button>
+        </ButtonView>
       </ScrollView>
-      <ButtonView>
-        <Button onPress={onFormalize} color="#87CC6F">
-          {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-          <Text>Сформулировать диагноз и назначение</Text>
-        </Button>
-      </ButtonView>
     </Container>
   );
 };
@@ -193,3 +210,24 @@ AddAppointmentScreen.navigationOptions = {
 };
 
 export default AddAppointmentScreen;
+
+// const [appointments, setAppointments] = useState([]);
+// const [isLoading, setIsLoading] = useState(false);
+
+// useEffect(() => {
+//   // const id = navigation.getParam("appointment")._id;
+//   // console.log(navigation.getParam("patient")._id);
+//   // console.log(navigation);
+//   // console.log("AddAppointmentScreens", navigation);
+//   appointmentsApi
+//     .get()
+//     .then(({ data }) => {
+//       setAppointments(data.data);
+//       // console.log("AddAppointmentScreen", data.data.appointments);
+//       // console.log(navigation.getParam("appointments", {}));
+//       setIsLoading(false);
+//     })
+//     .catch(() => {
+//       setIsLoading(false);
+//     });
+// }, []);
