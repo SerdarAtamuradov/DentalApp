@@ -27,8 +27,6 @@ const DetailsScreen = ({ navigation }) => {
   const patient = navigation.getParam("patient", {}),
     appointment = navigation.getParam("appointmentDetails", {});
 
-  let pressure = appointment.pressure;
-
   // useEffect(() => {
   //   const id = navigation.getParam("patient")._id;
   //   // console.log("PatientScreen", patient);
@@ -101,7 +99,7 @@ const DetailsScreen = ({ navigation }) => {
                 <AppointmentCartLabel>
                   &nbsp;Давление:
                   <Text style={{ fontWeight: "bold" }}>
-                    &nbsp;{(pressure[0], pressure[1])}
+                    &nbsp;{appointment.pressure}
                   </Text>
                 </AppointmentCartLabel>
               </AppointmentCartRow>
@@ -260,3 +258,4 @@ DetailsScreen.navigationOptions = {
 };
 
 export default DetailsScreen;
+// &nbsp;{pressure[0]},{pressure[1]}

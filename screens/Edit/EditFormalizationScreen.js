@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Text, ScrollView, View, TextInput } from "react-native";
 import styled from "styled-components/native";
-import { Item, Label, Input, Textarea, Body } from "native-base";
-import { appointmentsApi } from "../utils/api";
-import { Button, Container, GrayText } from "../components";
-import CheckBox from "@react-native-community/checkbox";
+import { Item, Label, Input, Textarea, CheckBox, Body } from "native-base";
+import { appointmentsApi } from "../../utils/api";
+import { Button, Container, GrayText } from "../../components";
 
 const FormalizationScreen = ({ navigation }) => {
   const { fullname, address } = navigation.getParam("patient"),
     value = navigation.getParam("data");
-  let check = false;
+  let checked = true;
   // console.log(value);
   const [values, setValues] = useState({
     diagnosis: "",
@@ -38,11 +37,6 @@ const FormalizationScreen = ({ navigation }) => {
   };
 
   const handleInputChange = (name, e) => {
-    const text = e.nativeEvent.text;
-    setFieldValue(name, text);
-  };
-
-  const handleCheckBoxChange = (name, e) => {
     const text = e.nativeEvent.text;
     setFieldValue(name, text);
   };
@@ -96,11 +90,8 @@ const FormalizationScreen = ({ navigation }) => {
             style={{ marginTop: 12 }}
           /> */}
           <CheckBox
-            disabled={false}
-            value={values.sickList}
-            onValueChange={(newValue) =>
-              handleCheckBoxChange.bind(this, "sickList", newValue)
-            }
+            checked={true}
+            onPress={() => setValues({ ["sickList"]: !checked })}
           />
           <Body>
             <Text>Да/Нет</Text>

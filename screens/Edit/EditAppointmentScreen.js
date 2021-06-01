@@ -4,8 +4,8 @@ import { Text, ScrollView, View } from "react-native";
 import styled from "styled-components/native";
 // import { Ionicons } from "@expo/vector-icons";
 import { Item, Label, Input } from "native-base";
-import { appointmentsApi } from "../utils/api";
-import { Button, Container, GrayText } from "../components";
+import { appointmentsApi } from "../../utils/api";
+import { Button, Container, GrayText } from "../../components";
 
 const AddAppointmentScreen = ({ navigation }) => {
   const [values, setValues] = useState({

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SectionList, Alert } from "react-native";
+import { TouchableOpacity, Text, View, SectionList, Alert } from "react-native";
 import styled from "styled-components/native";
 import { Appointment, SectionTitle } from "../components";
 import { Ionicons } from "@expo/vector-icons";
@@ -103,14 +103,22 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-HomeScreen.navigationOptions = {
+HomeScreen.navigationOptions = ({ navigation }) => ({
   title: "Посещение",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,
     shadowOpacity: 0.8,
   },
-};
+  headerRight: () => (
+    <TouchableOpacity
+      onPress={navigation.navigate.bind(this, "Patients")}
+      style={{ marginRight: 20 }}
+    >
+      <Ionicons name="md-people" size={28} color="black" />
+    </TouchableOpacity>
+  ),
+});
 
 const PlusButton = styled.TouchableOpacity`
   align-items: center;
