@@ -25,7 +25,7 @@ const EditPatientScreen = ({ navigation }) => {
 
   const onSubmit = () => {
     patientsApi
-      .patch(values)
+      .update(values._id)
       .then(() => {
         navigation.navigate("ListPatients");
       })
@@ -65,9 +65,9 @@ const EditPatientScreen = ({ navigation }) => {
           />
         </Item>
         <ButtonView>
-          <Button onPress={onSubmit} color="#87CC6F">
+          <Button onPress={onSubmit} color="#2A86FF">
             {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-            <Text>Добавить пациента</Text>
+            <Text>Изменить</Text>
           </Button>
         </ButtonView>
       </ScrollView>

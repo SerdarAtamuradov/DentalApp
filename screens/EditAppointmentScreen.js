@@ -8,40 +8,25 @@ import { appointmentsApi } from "../utils/api";
 import { Button, Container, GrayText } from "../components";
 
 const EditAppointmentScreen = ({ navigation }) => {
+  const thisPatient = navigation.getParam("appointment", {}).patient;
+  const value = navigation.getParam("appointment");
+  const id = navigation.getParam("appointment", {})._id;
+
+  console.log(id);
+
   const [values, setValues] = useState({
-    // pain: "Кашель",
-    // diagnosis: "",
-    // price: 5,
-    date:
-      new Date().getFullYear() +
-      "-" +
-      (new Date().getMonth() + 1) +
-      "-" +
-      new Date().getDate(),
-    time: "08:00",
-    complaint: "Кашель, боль в горле",
-    heat: "37",
-    pulse: "70",
-    pressure: "120, 80",
-    // prescription: "Принимать указанные таблетки",
-    // sickList: true,
-    patient: navigation.getParam("patientId"),
+    date: value.date,
+    time: value.time,
+    complaint: value.complaint,
+    heat: value.heat.toString(),
+    pulse: value.pulse.toString(),
+    pressure: value.pressure,
+    patient: value.patient,
+    diagnosis: value.diagnosis,
+    prescription: value.prescription,
+    sickList: value.sickList,
   });
   // const [values, setValues] = useState({});
-
-  const { fullname, address } = navigation.getParam("patient");
-
-  const fieldsName = {
-    diagnosis: "Диагноз",
-    date: "Дата",
-    time: "Время",
-    complaint: "Жалобы",
-    heat: "Температура",
-    pulse: "Пульс",
-    pressure: "Давление",
-    prescription: "Назначения",
-    sickList: "Больничный лист",
-  };
 
   const setFieldValue = (name, value) => {
     setValues({
@@ -55,30 +40,21 @@ const EditAppointmentScreen = ({ navigation }) => {
     setFieldValue(name, text);
   };
 
-  // const handlePressureChange = (name, e) => {
-  //   let text = e.nativeEvent.text;
-  //   let str = text.substring(1, text.length - 1);
-  //   let arr = str.split(",");
-  //   // arr.forEach((item) => parseInt(item));
-  //   let numArr = arr.map((item) => parseInt(item, 10));
-  //   // console.log(arr);
-  //   setFieldValue(name, numArr);
-  //   // return arr;
-  // };
   const onSubmit = () =>
-    navigation.navigate("Formalization", {
+    navigation.navigate("EditFormalization", {
       data: values,
-      patient: navigation.getParam("patient"),
+      patient: thisPatient,
     });
 
   const onFormalize = () => {
     // console.log(values);
     appointmentsApi
-      .add(values)
+      .update(values)
       .then(
-        navigation.navigate("Formalization", {
+        navigation.navigate("EditFormalization", {
           data: values,
           patient: navigation.getParam("patient"),
+          appId: id,
         })
       )
       .catch((e) => {
@@ -97,8 +73,8 @@ const EditAppointmentScreen = ({ navigation }) => {
     <Container>
       <ScrollView>
         <View style={{ marginBottom: 5 }}>
-          <PatientFullName>{fullname}</PatientFullName>
-          <GrayText style={{ paddingLeft: 10 }}>{address}</GrayText>
+          <PatientFullName>{thisPatient.fullname}</PatientFullName>
+          <GrayText style={{ paddingLeft: 10 }}>{thisPatient.address}</GrayText>
         </View>
         <Item style={{ marginLeft: 0 }}>
           <View style={{ flex: 1 }}>
@@ -119,15 +95,6 @@ const EditAppointmentScreen = ({ navigation }) => {
             />
           </View>
         </Item>
-        {/* <Item style={{ marginLeft: 0 }} floatingLabel>
-          <Label>Дата</Label>
-          <Input
-            onChange={handleInputChange.bind(this, "date")}
-            value={values.fullname}
-            style={{ marginTop: 12 }}
-            autoFocus
-          />
-        </Item> */}
         <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
           <Label>Жалобы</Label>
           <Input
@@ -171,10 +138,9 @@ const EditAppointmentScreen = ({ navigation }) => {
             //     patient: navigation.getParam("patient"),
             //   })
             // }
-            color="#87CC6F"
+            color="#2A86FF"
           >
-            {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-            <Text>Сформулировать диагноз и назначение</Text>
+            <Text>Изменить диагноз и назначение</Text>
           </Button>
         </ButtonView>
       </ScrollView>
@@ -184,10 +150,6 @@ const EditAppointmentScreen = ({ navigation }) => {
 const ButtonView = styled.View`
   flex: 1;
   margin-top: 30px;
-`;
-
-const TimeRow = styled.View`
-  flex-direction: row;
 `;
 
 const PatientFullName = styled.Text`
@@ -207,24 +169,3 @@ EditAppointmentScreen.navigationOptions = {
 };
 
 export default EditAppointmentScreen;
-
-// const [appointments, setAppointments] = useState([]);
-// const [isLoading, setIsLoading] = useState(false);
-
-// useEffect(() => {
-//   // const id = navigation.getParam("appointment")._id;
-//   // console.log(navigation.getParam("patient")._id);
-//   // console.log(navigation);
-//   // console.log("AddAppointmentScreens", navigation);
-//   appointmentsApi
-//     .get()
-//     .then(({ data }) => {
-//       setAppointments(data.data);
-//       // console.log("AddAppointmentScreen", data.data.appointments);
-//       // console.log(navigation.getParam("appointments", {}));
-//       setIsLoading(false);
-//     })
-//     .catch(() => {
-//       setIsLoading(false);
-//     });
-// }, []);

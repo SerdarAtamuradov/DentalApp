@@ -9,6 +9,8 @@ import {
   FormalizationScreen,
   DetailsScreen,
   EditPatientScreen,
+  EditAppointmentScreen,
+  EditFormalizationScreen,
 } from "./screens/";
 import { Patients } from "./screens/";
 const AppNavigator = createStackNavigator(
@@ -37,7 +39,14 @@ const AppNavigator = createStackNavigator(
     EditPatient: {
       screen: EditPatientScreen,
     },
+    EditAppointment: {
+      screen: EditAppointmentScreen,
+    },
+    EditFormalization: {
+      screen: EditFormalizationScreen,
+    },
   },
+
   {
     initialRouteName: "Home",
   }

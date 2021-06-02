@@ -6,14 +6,18 @@ import { appointmentsApi } from "../utils/api";
 import { Button, Container, GrayText } from "../components";
 
 const EditFormalizationScreen = ({ navigation }) => {
-  const { fullname, address } = navigation.getParam("patient"),
-    value = navigation.getParam("data");
+  const value = navigation.getParam("data"),
+    { fullname, address } = navigation.getParam("patient"),
+    id = navigation.getParam("appId");
+
+  console.log(id);
+
   let checked = true;
   // console.log(value);
   const [values, setValues] = useState({
-    diagnosis: "",
-    prescription: "Принимать указанные таблетки",
-    sickList: true,
+    diagnosis: value.diagnosis,
+    prescription: value.prescription,
+    sickList: value.sickList,
     date: value.date,
     time: value.time,
     complaint: value.complaint,
@@ -22,12 +26,6 @@ const EditFormalizationScreen = ({ navigation }) => {
     pressure: value.pressure,
     patient: value.patient,
   });
-
-  const fieldsName = {
-    diagnosis: "Диагноз",
-    prescription: "Назначения",
-    sickList: "Больничный лист",
-  };
 
   const setFieldValue = (name, value) => {
     setValues({
@@ -43,13 +41,13 @@ const EditFormalizationScreen = ({ navigation }) => {
 
   const onSubmit = () => {
     appointmentsApi
-      .add(values)
+      .update(id, values)
       .then(() => {
         navigation.navigate("Home");
       })
       .catch((e) => {
         if (e.response.data && e.response.data.message) {
-          console.log(e.response);
+          console.log(e.response.data);
           // e.response.data.message.forEach((err) => {
           //   const fieldName = err.param;
           //   alert(`Ошибка! Поле "${fieldsName[fieldName]}" указано неверно.`);
@@ -71,7 +69,6 @@ const EditFormalizationScreen = ({ navigation }) => {
             onChange={handleInputChange.bind(this, "diagnosis")}
             value={values.diagnosis}
             style={{ marginTop: 12 }}
-            autoFocus
           />
         </Item>
         <Item style={{ marginTop: 20, marginLeft: 0 }} floatingLabel>
@@ -84,11 +81,6 @@ const EditFormalizationScreen = ({ navigation }) => {
         </Item>
         <Item style={{ marginTop: 20, marginLeft: 0 }}>
           <Label>Больничный лист</Label>
-          {/* <Input
-            onChange={handleInputChange.bind(this, "sickList")}
-            value={values.sickList}
-            style={{ marginTop: 12 }}
-          /> */}
           <CheckBox
             checked={true}
             onPress={() => setValues({ ["sickList"]: !checked })}
@@ -98,9 +90,8 @@ const EditFormalizationScreen = ({ navigation }) => {
           </Body>
         </Item>
         <ButtonView>
-          <Button onPress={onSubmit} color="#87CC6F">
-            {/* <Ionicons name="ios-add" size={24} color="white" /> */}
-            <Text>Готово!</Text>
+          <Button onPress={onSubmit} color="#2A86FF">
+            <Text>Изменить</Text>
           </Button>
         </ButtonView>
       </ScrollView>
@@ -129,4 +120,3 @@ EditFormalizationScreen.navigationOptions = {
 };
 
 export default EditFormalizationScreen;
-//setValues({ ["sickList"]: !this.checked }

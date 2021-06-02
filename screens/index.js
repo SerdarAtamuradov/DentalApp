@@ -10,5 +10,5 @@ export { default as FormalizationScreen } from "./FormalizationScreen";
 
 export { default as Patients } from "./Patients";
 export { default as EditPatientScreen } from "./EditPatientScreen";
-// export { default as EditAppointmentScreen } from "./EditAppointmentScreen";
-// export { default as EditFormalizationScreen } from "./EditFormalizationScreen";
+export { default as EditAppointmentScreen } from "./EditAppointmentScreen";
+export { default as EditFormalizationScreen } from "./EditFormalizationScreen";
