@@ -76,7 +76,9 @@ const PatientScreen = ({ navigation }) => {
           ) : (
             <ScrollView>
               <Text style={{ fontWeight: "bold", fontSize: 18, left: 25 }}>
-                Посещение
+                {typeof appointments !== "undefined" && appointments.length > 0
+                  ? "Посещение"
+                  : "Нет посещений"}
               </Text>
               {appointments.map((appointment) => (
                 <AppointmentCart key={appointment._id}>

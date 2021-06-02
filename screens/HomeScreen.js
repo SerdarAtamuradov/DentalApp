@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, Text, View, SectionList, Alert } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  SectionList,
+  Alert,
+  Button,
+} from "react-native";
 import styled from "styled-components/native";
 import { Appointment, SectionTitle } from "../components";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,7 +14,8 @@ import { Ionicons } from "@expo/vector-icons";
 import Swipeable from "react-native-swipeable-row";
 import { appointmentsApi } from "../utils/api";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = (props) => {
+  const { navigation } = props;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,6 +38,8 @@ const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(fetchAppointments, []);
+
+  useEffect(fetchAppointments, [navigation.state.params]);
 
   const removeAppointment = (id) => {
     Alert.alert(
@@ -112,7 +122,7 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
   },
   headerRight: () => (
     <TouchableOpacity
-      onPress={navigation.navigate.bind(this, "Patients")}
+      onPress={navigation.navigate.bind(this, "ListPatients")}
       style={{ marginRight: 20 }}
     >
       <Ionicons name="md-people" size={28} color="black" />

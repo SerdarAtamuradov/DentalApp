@@ -1,4 +1,3 @@
-//import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -10,7 +9,7 @@ import {
   FormalizationScreen,
   DetailsScreen,
 } from "./screens/";
-
+import { Patients } from "./screens/";
 const AppNavigator = createStackNavigator(
   {
     Home: {
@@ -30,6 +29,9 @@ const AppNavigator = createStackNavigator(
     },
     Details: {
       screen: DetailsScreen,
+    },
+    ListPatients: {
+      screen: Patients,
     },
   },
   {

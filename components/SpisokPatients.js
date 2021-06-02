@@ -7,8 +7,8 @@ import GrayText from "./GrayText";
 import Badge from "./Badge";
 import getAvatarColor from "../utils/getAvatarColor";
 
-const Appointment = ({ navigate, item }) => {
-  const { patient, complaint, active, time } = item;
+const SpisokPatients = ({ navigate, item }) => {
+  const { patient } = item;
   const avatarColors = getAvatarColor(patient.fullname[0].toUpperCase());
 
   return (
@@ -22,14 +22,12 @@ const Appointment = ({ navigate, item }) => {
       <View style={{ flex: 1 }}>
         <FullName>{patient.fullname}</FullName>
         <GrayText>{patient.address}</GrayText>
-        <GrayText>{complaint}</GrayText>
       </View>
-      {time && <Badge active={active}>{time}</Badge>}
     </GroupItem>
   );
 };
 
-Appointment.defaultProps = {
+SpisokPatients.defaultProps = {
   groupTitle: "Untitled",
   items: [],
 };
@@ -64,4 +62,4 @@ const GroupItem = styled.TouchableOpacity`
   border-bottom-color: #f3f3f3;
 `;
 
-export default Appointment;
+export default SpisokPatients;

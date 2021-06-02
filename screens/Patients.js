@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, Alert, View } from "react-native";
+import { FlatList, Alert, View, Text, SectionList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import Swipeable from "react-native-swipeable-row";
 import { Item, Input } from "native-base";
 
-import { Appointment, SectionTitle, PlusButton } from "../components";
-import { patientsApi, phoneFormat } from "../utils";
+import { Appointment, SectionTitle, SpisokPatients } from "../components";
+import { patientsApi } from "../utils/api";
 
-const PatientsScreen = (props) => {
+const Patients = (props) => {
   const { navigation } = props;
   const [data, setData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -20,6 +20,7 @@ const PatientsScreen = (props) => {
       .get()
       .then(({ data }) => {
         setData(data.data);
+        // console.log(data.data);
       })
       .finally((e) => {
         setIsLoading(false);
@@ -85,7 +86,13 @@ const PatientsScreen = (props) => {
             renderItem={({ item }) => (
               <Swipeable
                 rightButtons={[
-                  <SwipeViewButton style={{ backgroundColor: "#B4C1CB" }}>
+                  <SwipeViewButton
+                    // onPress={navigation.navigate.bind(this, "EditPatient", {
+                    //   PatientId: item._id,
+                    //   Patient: item,
+                    // })}
+                    style={{ backgroundColor: "#B4C1CB" }}
+                  >
                     <Ionicons name="md-create" size={28} color="white" />
                   </SwipeViewButton>,
                   <SwipeViewButton
@@ -96,11 +103,10 @@ const PatientsScreen = (props) => {
                   </SwipeViewButton>,
                 ]}
               >
-                <Appointment
+                <SpisokPatients
                   navigate={navigation.navigate}
                   item={{
                     patient: item,
-                    diagnosis: phoneFormat(item.phone),
                   }}
                 />
               </Swipeable>
@@ -111,12 +117,14 @@ const PatientsScreen = (props) => {
           />
         </>
       )}
-      <PlusButton onPress={navigation.navigate.bind(this, "AddPatient")} />
+      <PlusButton onPress={navigation.navigate.bind(this, "AddPatient")}>
+        <Ionicons name="ios-add" size={38} color="white" />
+      </PlusButton>
     </Container>
   );
 };
 
-PatientsScreen.navigationOptions = {
+Patients.navigationOptions = {
   title: "Пациенты",
   headerTintColor: "#2A86FF",
   headerStyle: {
@@ -124,6 +132,22 @@ PatientsScreen.navigationOptions = {
     shadowOpacity: 0.8,
   },
 };
+
+const PlusButton = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 64px;
+  height: 64px;
+  background: #2a86ff;
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+  shadow-color: #2a86ff;
+  shadow-opacity: 0.7;
+  shadow-radius: 3.5px;
+  elevation: 5;
+`;
 
 const SwipeViewButton = styled.TouchableOpacity`
   width: 75px;
@@ -135,6 +159,13 @@ const SwipeViewButton = styled.TouchableOpacity`
 
 const Container = styled.View`
   flex: 1;
+  background-color: #fbfbfb;
 `;
 
-export default PatientsScreen;
+export default Patients;
+// .filter(
+//   (item) =>
+//     item.fullname
+//       .toLowerCase()
+//       .indexOf(searchValue.toLowerCase()) >= 0
+// )
