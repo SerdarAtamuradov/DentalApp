@@ -160,7 +160,7 @@ const PatientFullName = styled.Text`
 `;
 
 EditAppointmentScreen.navigationOptions = {
-  title: "Добавить новый осмотр",
+  title: "Изменить посещение",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,

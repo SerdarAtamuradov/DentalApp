@@ -90,7 +90,7 @@ const ButtonView = styled.View`
 `;
 
 EditPatientScreen.navigationOptions = {
-  title: "Добавить пациента",
+  title: "Изменить данные пациента",
   headerTintColor: "#2A86FF",
   headerStyle: {
     elevation: 0.8,
