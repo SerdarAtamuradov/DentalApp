@@ -87,10 +87,12 @@ const Patients = (props) => {
               <Swipeable
                 rightButtons={[
                   <SwipeViewButton
-                    // onPress={navigation.navigate.bind(this, "EditPatient", {
-                    //   PatientId: item._id,
-                    //   Patient: item,
-                    // })}
+                    onPress={() =>
+                      navigation.navigate("EditPatient", {
+                        // PatientId: item._id,
+                        patient: item,
+                      })
+                    }
                     style={{ backgroundColor: "#B4C1CB" }}
                   >
                     <Ionicons name="md-create" size={28} color="white" />

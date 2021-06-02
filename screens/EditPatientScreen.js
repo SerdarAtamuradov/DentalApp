@@ -3,11 +3,17 @@ import { Text, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Item, Label, Input } from "native-base";
-import { patientsApi } from "../../utils/api";
-import { Button, Container } from "../../components";
+import { patientsApi } from "../utils/api";
+import { Button, Container } from "../components";
 
-const AddPatientScreen = ({ navigation }) => {
-  const [values, setValues] = useState({});
+const EditPatientScreen = ({ navigation }) => {
+  const value = navigation.getParam("patient");
+  console.log(value);
+  const [values, setValues] = useState({
+    fullname: value.fullname,
+    phone: value.phone,
+    address: value.address,
+  });
 
   const handleChange = (name, e) => {
     const text = e.nativeEvent.text;
@@ -19,9 +25,9 @@ const AddPatientScreen = ({ navigation }) => {
 
   const onSubmit = () => {
     patientsApi
-      .add(values)
+      .patch(values)
       .then(() => {
-        navigation.navigate("Home");
+        navigation.navigate("ListPatients");
       })
       .catch((e) => {
         alert("BAD");
@@ -83,7 +89,7 @@ const ButtonView = styled.View`
   margin-top: 30px;
 `;
 
-AddPatientScreen.navigationOptions = {
+EditPatientScreen.navigationOptions = {
   title: "Добавить пациента",
   headerTintColor: "#2A86FF",
   headerStyle: {
@@ -92,4 +98,4 @@ AddPatientScreen.navigationOptions = {
   },
 };
 
-export default AddPatientScreen;
+export default EditPatientScreen;

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Text, ScrollView, View, TextInput } from "react-native";
 import styled from "styled-components/native";
 import { Item, Label, Input, Textarea, CheckBox, Body } from "native-base";
-import { appointmentsApi } from "../../utils/api";
-import { Button, Container, GrayText } from "../../components";
+import { appointmentsApi } from "../utils/api";
+import { Button, Container, GrayText } from "../components";
 
-const FormalizationScreen = ({ navigation }) => {
+const EditFormalizationScreen = ({ navigation }) => {
   const { fullname, address } = navigation.getParam("patient"),
     value = navigation.getParam("data");
   let checked = true;
@@ -119,7 +119,7 @@ const PatientFullName = styled.Text`
   margin-left: 5px;
 `;
 
-FormalizationScreen.navigationOptions = {
+EditFormalizationScreen.navigationOptions = {
   title: "Диагноз и назначение",
   headerTintColor: "#2A86FF",
   headerStyle: {
@@ -128,5 +128,5 @@ FormalizationScreen.navigationOptions = {
   },
 };
 
-export default FormalizationScreen;
+export default EditFormalizationScreen;
 //setValues({ ["sickList"]: !this.checked }

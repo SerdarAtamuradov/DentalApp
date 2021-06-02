@@ -4,10 +4,10 @@ import { Text, ScrollView, View } from "react-native";
 import styled from "styled-components/native";
 // import { Ionicons } from "@expo/vector-icons";
 import { Item, Label, Input } from "native-base";
-import { appointmentsApi } from "../../utils/api";
-import { Button, Container, GrayText } from "../../components";
+import { appointmentsApi } from "../utils/api";
+import { Button, Container, GrayText } from "../components";
 
-const AddAppointmentScreen = ({ navigation }) => {
+const EditAppointmentScreen = ({ navigation }) => {
   const [values, setValues] = useState({
     // pain: "Кашель",
     // diagnosis: "",
@@ -197,7 +197,7 @@ const PatientFullName = styled.Text`
   margin-left: 5px;
 `;
 
-AddAppointmentScreen.navigationOptions = {
+EditAppointmentScreen.navigationOptions = {
   title: "Добавить новый осмотр",
   headerTintColor: "#2A86FF",
   headerStyle: {
@@ -206,7 +206,7 @@ AddAppointmentScreen.navigationOptions = {
   },
 };
 
-export default AddAppointmentScreen;
+export default EditAppointmentScreen;
 
 // const [appointments, setAppointments] = useState([]);
 // const [isLoading, setIsLoading] = useState(false);

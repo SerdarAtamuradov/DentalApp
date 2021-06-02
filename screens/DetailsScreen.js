@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  Linking,
-  ScrollView,
-} from "react-native";
+import React from "react";
+import { Text, View, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { GrayText, Button, Badge, Container } from "../components";
 import {
@@ -13,35 +7,13 @@ import {
   FontAwesome5,
   Fontisto,
   FontAwesome,
-  Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-import { patientsApi, phoneFormat } from "../utils/api";
-// import { ScrollView } from "react-native-gesture-handler";
-
 const DetailsScreen = ({ navigation }) => {
-  // const [appointments, setAppointments] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
   const patient = navigation.getParam("patient", {}),
     appointment = navigation.getParam("appointmentDetails", {});
 
-  // useEffect(() => {
-  //   const id = navigation.getParam("patient")._id;
-  //   // console.log("PatientScreen", patient);
-  //   patientsApi
-  //     .show(id)
-  //     .then(({ data }) => {
-  //       setAppointments(data.data.appointments);
-  //       // console.log("PatientScreen", data.data.appointments);
-  //       // console.log(patient.fullname);
-  //       setIsLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setIsLoading(false);
-  //     });
-  // }, []);
   return (
     <View style={{ flex: 1 }}>
       <PatientDetails>
@@ -174,12 +146,6 @@ const DetailsScreen = ({ navigation }) => {
     </View>
   );
 };
-
-// const AppointmentText = styled.View`
-//   left: 20px;
-// `;
-// position: absolute;
-// top:9px;  yokarkynynky
 
 const MoreButton = styled.TouchableOpacity`
   display: flex;
