@@ -1,0 +1,171 @@
+Array [
+  Object {
+    "data": Array [
+      Object {
+        "__v": 0,
+        "_id": "6094b1529db5d7364c5693da",
+        "createdAt": "2021-05-07T03:17:38.077Z",
+        "date": "2021-05-17",
+        "diagnosis": "мигрень",
+        "pain": "Головная боль",
+        "patient": Object {
+          "__v": 0,
+          "_id": "6094ae979770783c5c69f7f8",
+          "address": "Кирова 20, кв. 1",
+          "createdAt": "2021-05-07T03:05:59.919Z",
+          "fullname": "Иван Борович",
+          "phone": "+375298763256",
+          "updatedAt": "2021-05-30T13:55:41.267Z",
+        },
+        "price": 10,
+        "time": "10:30",
+        "updatedAt": "2021-05-07T03:17:38.077Z",
+      },
+    ],
+    "title": "17 мая",
+  },
+  Object {
+    "data": Array [
+      Object {
+        "__v": 0,
+        "_id": "6094c2016139ab0ab0e6aca8",
+        "createdAt": "2021-05-07T04:28:49.394Z",
+        "date": "2021-05-19",
+        "diagnosis": "диарея",
+        "pain": "Боль в животе",
+        "patient": Object {
+          "__v": 0,
+          "_id": "6094ae979770783c5c69f7f8",
+          "address": "Кирова 20, кв. 1",
+          "createdAt": "2021-05-07T03:05:59.919Z",
+          "fullname": "Иван Борович",
+          "phone": "+375298763256",
+          "updatedAt": "2021-05-30T13:55:41.267Z",
+        },
+        "price": 5,
+        "time": "11:00",
+        "updatedAt": "2021-05-07T04:33:49.487Z",
+      },
+    ],
+    "title": "19 мая",
+  },
+  Object {
+    "data": Array [
+      Object {
+        "__v": 0,
+        "_id": "609ac11c676b8151dca43fb1",
+        "createdAt": "2021-05-11T17:38:36.164Z",
+        "date": "2021-05-20",
+        "diagnosis": "Грипп",
+        "pain": "Кашель",
+        "patient": Object {
+          "__v": 0,
+          "_id": "6095fea42739c50d5c7ee36b",
+          "address": "Северная 8, кв. 26",
+          "createdAt": "2021-05-08T02:59:48.395Z",
+          "fullname": "Влад Немцов",
+          "phone": "+375258723319",
+          "updatedAt": "2021-05-30T13:57:11.986Z",
+        },
+        "price": 6,
+        "time": "9:00",
+        "updatedAt": "2021-05-12T16:47:05.945Z",
+      },
+    ],
+    "title": "20 мая",
+  },
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+js file:
+export const arr = [
+  {
+    data: [
+      {
+        __v: 0,
+        _id: '6094b1529db5d7364c5693da',
+        createdAt: '2021-05-07T03:17:38.077Z',
+        date: '2021-05-17',
+        diagnosis: 'мигрень',
+        pain: 'Головная боль',
+        patient: {
+          __v: 0,
+          _id: '6094ae979770783c5c69f7f8',
+          address: 'Кирова 20, кв. 1',
+          createdAt: '2021-05-07T03:05:59.919Z',
+          fullname: 'Иван Борович',
+          phone: '+375298763256',
+          updatedAt: '2021-05-30T13:55:41.267Z'
+        },
+        price: 10,
+        time: '10:30',
+        updatedAt: '2021-05-07T03:17:38.077Z'
+      }
+    ],
+    title: '17 мая'
+  },
+  {
+    data: [
+      {
+        __v: 0,
+        _id: '6094c2016139ab0ab0e6aca8',
+        createdAt: '2021-05-07T04:28:49.394Z',
+        date: '2021-05-19',
+        diagnosis: 'диарея',
+        pain: 'Боль в животе',
+        patient: {
+          __v: 0,
+          _id: '6094ae979770783c5c69f7f8',
+          address: 'Кирова 20, кв. 1',
+          createdAt: '2021-05-07T03:05:59.919Z',
+          fullname: 'Иван Борович',
+          phone: '+375298763256',
+          updatedAt: '2021-05-30T13:55:41.267Z'
+        },
+        price: 5,
+        time: '11:00',
+        updatedAt: '2021-05-07T04:33:49.487Z'
+      }
+    ],
+    title: '19 мая'
+  },
+  {
+    data: [
+      {
+        __v: 0,
+        _id: '609ac11c676b8151dca43fb1',
+        createdAt: '2021-05-11T17:38:36.164Z',
+        date: '2021-05-20',
+        diagnosis: 'Грипп',
+        pain: 'Кашель',
+        patient: {
+          __v: 0,
+          _id: '6095fea42739c50d5c7ee36b',
+          address: 'Северная 8, кв. 26',
+          createdAt: '2021-05-08T02:59:48.395Z',
+          fullname: 'Влад Немцов',
+          phone: '+375258723319',
+          updatedAt: '2021-05-30T13:57:11.986Z'
+        },
+        price: 6,
+        time: '9:00',
+        updatedAt: '2021-05-12T16:47:05.945Z'
+      }
+    ],
+    title: '20 мая'
+  }
+];
+

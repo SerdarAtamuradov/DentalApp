@@ -11,6 +11,7 @@ import {
   EditPatientScreen,
   EditAppointmentScreen,
   EditFormalizationScreen,
+  FromFileScreen,
 } from "./screens/";
 import { Patients } from "./screens/";
 const AppNavigator = createStackNavigator(
@@ -44,6 +45,9 @@ const AppNavigator = createStackNavigator(
     },
     EditFormalization: {
       screen: EditFormalizationScreen,
+    },
+    FromFile: {
+      screen: FromFileScreen,
     },
   },
 

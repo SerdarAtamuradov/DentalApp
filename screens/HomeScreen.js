@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity, Text, View, SectionList, Alert } from "react-native";
 import styled from "styled-components/native";
 import { Appointment, SectionTitle } from "../components";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 
 import Swipeable from "react-native-swipeable-row";
 import { appointmentsApi } from "../utils/api";
@@ -36,8 +36,8 @@ const HomeScreen = (props) => {
 
   const removeAppointment = (id) => {
     Alert.alert(
-      "Удаление приема",
-      "Вы действительно хотите удалить прием?",
+      "Удаление посещение",
+      "Вы действительно хотите удалить посещение?",
       [
         {
           text: "Отмена",
@@ -100,8 +100,8 @@ const HomeScreen = (props) => {
           )}
         />
       )}
-      <PlusButton onPress={navigation.navigate.bind(this, "AddPatient")}>
-        <Ionicons name="ios-add" size={38} color="white" />
+      <PlusButton onPress={navigation.navigate.bind(this, "FromFile")}>
+        <AntDesign name="download" size={38} color="white" />
       </PlusButton>
     </Container>
   );
